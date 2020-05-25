@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang=zh>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <meta name="description" content="Hexo 是一个快速、简洁且高效的博客框架。Hexo 使用 Markdown（或其他渲染引擎）解析文章，在几秒内，即可利用靓丽的主题生成静态网页。 这里我把个人博客托管在 GitHub Pages 上。GitHub Pages 是一种静态站点托管服务，每个 GitHub 帐户或组织都可以有一个站点。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Hexo 建站">
+<meta property="og:url" content="http://yoursite.com/2020/05/25/Hexo-%E5%BB%BA%E7%AB%99/index.html">
+<meta property="og:site_name" content="虎·馆">
+<meta property="og:description" content="Hexo 是一个快速、简洁且高效的博客框架。Hexo 使用 Markdown（或其他渲染引擎）解析文章，在几秒内，即可利用靓丽的主题生成静态网页。 这里我把个人博客托管在 GitHub Pages 上。GitHub Pages 是一种静态站点托管服务，每个 GitHub 帐户或组织都可以有一个站点。">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2020-05-25T15:41:57.000Z">
+<meta property="article:modified_time" content="2020-05-25T16:13:19.805Z">
+<meta property="article:author" content="DaHu An">
+<meta property="article:tag" content="Hexo,Cactus,blog">
+<meta name="twitter:card" content="summary">
+    
+    
+        
+          
+              <link rel="shortcut icon" href="/images/tiger.ico">
+          
+        
+        
+          
+            <link rel="icon" type="image/png" href="/images/tiger.png" sizes="192x192">
+          
+        
+        
+          
+            <link rel="apple-touch-icon" sizes="180x180" href="/images/tiger.png">
+          
+        
+    
+    <!-- title -->
+    <title>Hexo 建站</title>
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- persian styles -->
+    
+      
+<link rel="stylesheet" href="/css/rtl.css">
+
+    
+    <!-- rss -->
+    
+    
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fas fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+         
+          <li><a href="/">首页</a></li>
+         
+          <li><a href="/about/">关于</a></li>
+         
+          <li><a href="/archives/">归档</a></li>
+         
+          <li><a href="https://github.com/Mrrabbitan" target="_blank" rel="noopener">项目</a></li>
+        
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        
+        <li><a class="icon" href="/2020/05/24/%E5%88%9D%E6%AC%A1%E8%A7%81%E9%9D%A2-%E7%A5%9D%E5%A5%BD/"><i class="fas fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" href="#"><i class="fas fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">上一篇</span>
+      <span id="i-next" class="info" style="display:none;">下一篇</span>
+      <span id="i-top" class="info" style="display:none;">返回顶部</span>
+      <span id="i-share" class="info" style="display:none;">分享文章</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=http://yoursite.com/2020/05/25/Hexo-%E5%BB%BA%E7%AB%99/" target="_blank" rel="noopener"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=http://yoursite.com/2020/05/25/Hexo-%E5%BB%BA%E7%AB%99/&text=Hexo 建站" target="_blank" rel="noopener"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=http://yoursite.com/2020/05/25/Hexo-%E5%BB%BA%E7%AB%99/&title=Hexo 建站" target="_blank" rel="noopener"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=http://yoursite.com/2020/05/25/Hexo-%E5%BB%BA%E7%AB%99/&is_video=false&description=Hexo 建站" target="_blank" rel="noopener"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=Hexo 建站&body=Check out this article: http://yoursite.com/2020/05/25/Hexo-%E5%BB%BA%E7%AB%99/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=http://yoursite.com/2020/05/25/Hexo-%E5%BB%BA%E7%AB%99/&title=Hexo 建站" target="_blank" rel="noopener"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=http://yoursite.com/2020/05/25/Hexo-%E5%BB%BA%E7%AB%99/&title=Hexo 建站" target="_blank" rel="noopener"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=http://yoursite.com/2020/05/25/Hexo-%E5%BB%BA%E7%AB%99/&title=Hexo 建站" target="_blank" rel="noopener"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=http://yoursite.com/2020/05/25/Hexo-%E5%BB%BA%E7%AB%99/&title=Hexo 建站" target="_blank" rel="noopener"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=http://yoursite.com/2020/05/25/Hexo-%E5%BB%BA%E7%AB%99/&name=Hexo 建站&description=&lt;p&gt;Hexo 是一个快速、简洁且高效的博客框架。Hexo 使用 Markdown（或其他渲染引擎）解析文章，在几秒内，即可利用靓丽的主题生成静态网页。&lt;/p&gt;
+&lt;p&gt;这里我把个人博客托管在 GitHub Pages 上。GitHub Pages 是一种静态站点托管服务，每个 GitHub 帐户或组织都可以有一个站点。&lt;/p&gt;"><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://news.ycombinator.com/submitlink?u=http://yoursite.com/2020/05/25/Hexo-%E5%BB%BA%E7%AB%99/&t=Hexo 建站" target="_blank" rel="noopener"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    <div id="toc">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#准备工作"><span class="toc-number">1.</span> <span class="toc-text">准备工作</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#GitHub-Pages-上搭建博客"><span class="toc-number">2.</span> <span class="toc-text">GitHub Pages 上搭建博客</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#GitHub-创建仓库"><span class="toc-number">2.1.</span> <span class="toc-text">GitHub 创建仓库</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#注意"><span class="toc-number">2.2.</span> <span class="toc-text">注意</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Hexo-安装"><span class="toc-number">2.3.</span> <span class="toc-text">Hexo 安装</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Hexo-初始化"><span class="toc-number">2.4.</span> <span class="toc-text">Hexo 初始化</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#博客生成、预览"><span class="toc-number">3.</span> <span class="toc-text">博客生成、预览</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#修改主题"><span class="toc-number">4.</span> <span class="toc-text">修改主题</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#部署到-GitHub"><span class="toc-number">5.</span> <span class="toc-text">部署到 GitHub</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#常用的-hexo-命令"><span class="toc-number">6.</span> <span class="toc-text">常用的 hexo 命令</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#写文章"><span class="toc-number">6.1.</span> <span class="toc-text">写文章</span></a></li></ol></li></ol>
+    </div>
+  </span>
+</div>
+
+    
+    <div class="content index py4">
+        
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle" itemprop="name headline">
+        Hexo 建站
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name">虎·馆</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2020-05-25T15:41:57.000Z" itemprop="datePublished">2020-05-25</time>
+        
+      
+    </div>
+
+
+      
+
+      
+    <div class="article-tag">
+        <i class="fas fa-tag"></i>
+        <a class="tag-link" href="/tags/Hexo-Cactus-blog/" rel="tag">Hexo,Cactus,blog</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+
+  <div class="content" itemprop="articleBody">
+    <p>Hexo 是一个快速、简洁且高效的博客框架。Hexo 使用 Markdown（或其他渲染引擎）解析文章，在几秒内，即可利用靓丽的主题生成静态网页。</p>
+<p>这里我把个人博客托管在 GitHub Pages 上。GitHub Pages 是一种静态站点托管服务，每个 GitHub 帐户或组织都可以有一个站点。</p>
+<a id="more"></a>
+
+<h2 id="准备工作"><a href="#准备工作" class="headerlink" title="准备工作"></a>准备工作</h2><p>安装 Hexo 前要先安装：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Node.js</span><br><span class="line">Git</span><br></pre></td></tr></table></figure>
+
+<p>Hexo 原理简要介绍<br>由于 GitHub Pages 存放的都是静态文件，博客存放的不只是文章内容，还有文章列表、分类、标签、翻页等动态内容，假如每次写完一篇文章都要手动更新博文目录和相关链接信息，那就太繁琐了，毕竟博客的关键是内容，hexo 做的就是将这些 md 文件都放在本地，每次写完文章后框架会批量生成相关页面，然后我们只需要将生成的静态文件提交到 GitHub 即可。</p>
+<p>注意：建议使用 Git Bash 来执行后续的所有命令。</p>
+<h2 id="GitHub-Pages-上搭建博客"><a href="#GitHub-Pages-上搭建博客" class="headerlink" title="GitHub Pages 上搭建博客"></a>GitHub Pages 上搭建博客</h2><h3 id="GitHub-创建仓库"><a href="#GitHub-创建仓库" class="headerlink" title="GitHub 创建仓库"></a>GitHub 创建仓库</h3><p>新建一个名为 用户名.github.io 的仓库，比如说，如果你的 GitHub 用户名是 mrrabbitan，那么你就新建 mrrabbitan.github.io 的仓库，将来你的网站访问地址就是 <a href="https://mrrabbitan.github.io。" target="_blank" rel="noopener">https://mrrabbitan.github.io。</a></p>
+<p>由此可见，每一个 GitHub 账户最多只能创建一个这样可以直接使用域名访问的仓库。</p>
+<h3 id="注意"><a href="#注意" class="headerlink" title="注意"></a>注意</h3><p>仓库名字必须是：username.github.io，其中 username 是你的用户名</p>
+<h3 id="Hexo-安装"><a href="#Hexo-安装" class="headerlink" title="Hexo 安装"></a>Hexo 安装</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install -g hexo</span><br></pre></td></tr></table></figure>
+<h3 id="Hexo-初始化"><a href="#Hexo-初始化" class="headerlink" title="Hexo 初始化"></a>Hexo 初始化</h3><p>在想要的路径下新建一个名为 hexo 的文件夹（名字可以随便取），比如我的是 D:\document\GitHub\hexo，这个文件夹内就是你的 Hexo 博客的源文件：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> /d/document/GitHub/hexo/</span><br><span class="line">hexo init</span><br></pre></td></tr></table></figure>
+<p>输入以上命令后，hexo 会自动下载一些文件到这个目录，包括 node_modules，其中比较重要的几个文件的目录结构如下：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">.</span><br><span class="line">├── _config.yml</span><br><span class="line">├── package.json</span><br><span class="line">├── scaffolds</span><br><span class="line">├── <span class="built_in">source</span></span><br><span class="line">|   ├── _drafts</span><br><span class="line">|   └── _posts</span><br><span class="line">└── themes</span><br></pre></td></tr></table></figure>
+<p>注意：hexo 有 2 个_config.yml 文件，一个是站点根目录下的_config.yml，一个是 theme（主题）下的_config.yml 文件。</p>
+<h2 id="博客生成、预览"><a href="#博客生成、预览" class="headerlink" title="博客生成、预览"></a>博客生成、预览</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">hexo g <span class="comment"># 生成</span></span><br><span class="line">hexo s <span class="comment"># 启动服务</span></span><br></pre></td></tr></table></figure>
+<p>执行以上命令之后，hexo 就会在 public 文件夹生成相关 html 文件，这些就是你博客的静态文件，后续需要把这些提交到 GitHub 上。</p>
+<p>hexo s 是开启本地预览服务，打开浏览器访问 <a href="http://localhost:4000" target="_blank" rel="noopener">http://localhost:4000</a> 即可看到内容，很多人会碰到浏览器一直在转圈但是就是加载不出来的问题，一般情况下是因为端口占用的缘故。</p>
+<h2 id="修改主题"><a href="#修改主题" class="headerlink" title="修改主题"></a>修改主题</h2><p>这里以 hexo-theme-yilia 这个主题为例做一下说明。</p>
+<p>首先下载 hexo-theme-yilia 这个主题：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> /d/document/GitHub/hexo/</span><br><span class="line">git <span class="built_in">clone</span> https://github.com/litten/hexo-theme-yilia.git themes/yilia</span><br></pre></td></tr></table></figure>
+<p>下载的主题文件都在 theme 目录下。</p>
+<p>然后我们将 Hexo 根目录下的_config.yml 中的 theme: landscape 改为 theme: yilia，然后重新执行 hexo g 来重新生成。</p>
+<p>注意：如果出现一些莫名其妙的问题，可以先执行 </p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo clean</span><br></pre></td></tr></table></figure>
+<p>来清理一下 public 的内容，然后再重新生成。</p>
+<h2 id="部署到-GitHub"><a href="#部署到-GitHub" class="headerlink" title="部署到 GitHub"></a>部署到 GitHub</h2><p>如果你一切都配置好了，接下来就是把博客部署到 GitHub 上：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo d</span><br></pre></td></tr></table></figure>
+<p>注意：</p>
+<p>ssh key 配置好。<br>配置_config.yml 中有关 deploy 的部分（注意缩进）。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">deploy:</span><br><span class="line">  <span class="built_in">type</span>: git</span><br><span class="line">  repository: git@github.com:dta0502/dta0502.github.io.git <span class="comment"># 用https或者ssh均可</span></span><br><span class="line">  branch: master</span><br></pre></td></tr></table></figure>
+<p>直接执行 hexo d 的话一般会报如下错误：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Deployer not found: git</span><br></pre></td></tr></table></figure>
+<p>这是因为缺少了一个插件，我们可以通过如下命令安装：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install hexo-deployer-git --save</span><br></pre></td></tr></table></figure>
+<p>然后输入 hexo d 就会将本次有改动的代码全部提交。</p>
+<h2 id="常用的-hexo-命令"><a href="#常用的-hexo-命令" class="headerlink" title="常用的 hexo 命令"></a>常用的 hexo 命令</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">常见命令：</span><br><span class="line">hexo new <span class="string">"postName"</span>      <span class="comment"># 新建文章</span></span><br><span class="line">hexo new page <span class="string">"pageName"</span> <span class="comment"># 新建页面</span></span><br><span class="line">hexo generate            <span class="comment"># 生成静态页面至public目录</span></span><br><span class="line">hexo server              <span class="comment"># 开启预览访问端口（默认端口4000，'ctrl + c'关闭server）</span></span><br><span class="line">hexo deploy              <span class="comment"># 部署到GitHub</span></span><br><span class="line">hexo <span class="built_in">help</span>                <span class="comment"># 查看帮助</span></span><br><span class="line">hexo version             <span class="comment"># 查看Hexo的版本</span></span><br><span class="line">缩写命令：</span><br><span class="line">hexo n == hexo new</span><br><span class="line">hexo g == hexo generate</span><br><span class="line">hexo s == hexo server</span><br><span class="line">hexo d == hexo deploy</span><br><span class="line">组合命令：</span><br><span class="line">hexo s -g   <span class="comment"># 生成并本地预览</span></span><br><span class="line">hexo d -g   <span class="comment"># 生成并上传</span></span><br></pre></td></tr></table></figure>
+<h3 id="写文章"><a href="#写文章" class="headerlink" title="写文章"></a>写文章</h3><p>我们可以在 hexo 根目录下执行命令：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo new <span class="string">'my-first-blog'</span></span><br></pre></td></tr></table></figure>
+<p>hexo 会帮我们在_posts 下生成相关 md 文件，我们只需要打开这个文件就可以开始写博客了，用这个命令的好处是帮我们自动生成了文章创建时间。</p>
+<p>默认情况下，生成的博文目录会显示全部的文章内容，我们可以在文章合适的位置加上 <!--more--> 来设置文章摘要的长度。</p>
+<p>举例来说：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Hexo 是一个快速、简洁且高效的博客框架。</span><br><span class="line"></span><br><span class="line">&lt;!-- more --&gt;</span><br></pre></td></tr></table></figure>
+  </div>
+</article>
+
+
+
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+         
+          <li><a href="/">首页</a></li>
+         
+          <li><a href="/about/">关于</a></li>
+         
+          <li><a href="/archives/">归档</a></li>
+         
+          <li><a href="https://github.com/Mrrabbitan" target="_blank" rel="noopener">项目</a></li>
+        
+      </ul>
+    </div>
+
+    <div id="toc-footer" style="display: none">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#准备工作"><span class="toc-number">1.</span> <span class="toc-text">准备工作</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#GitHub-Pages-上搭建博客"><span class="toc-number">2.</span> <span class="toc-text">GitHub Pages 上搭建博客</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#GitHub-创建仓库"><span class="toc-number">2.1.</span> <span class="toc-text">GitHub 创建仓库</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#注意"><span class="toc-number">2.2.</span> <span class="toc-text">注意</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Hexo-安装"><span class="toc-number">2.3.</span> <span class="toc-text">Hexo 安装</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Hexo-初始化"><span class="toc-number">2.4.</span> <span class="toc-text">Hexo 初始化</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#博客生成、预览"><span class="toc-number">3.</span> <span class="toc-text">博客生成、预览</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#修改主题"><span class="toc-number">4.</span> <span class="toc-text">修改主题</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#部署到-GitHub"><span class="toc-number">5.</span> <span class="toc-text">部署到 GitHub</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#常用的-hexo-命令"><span class="toc-number">6.</span> <span class="toc-text">常用的 hexo 命令</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#写文章"><span class="toc-number">6.1.</span> <span class="toc-text">写文章</span></a></li></ol></li></ol>
+    </div>
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=http://yoursite.com/2020/05/25/Hexo-%E5%BB%BA%E7%AB%99/" target="_blank" rel="noopener"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=http://yoursite.com/2020/05/25/Hexo-%E5%BB%BA%E7%AB%99/&text=Hexo 建站" target="_blank" rel="noopener"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=http://yoursite.com/2020/05/25/Hexo-%E5%BB%BA%E7%AB%99/&title=Hexo 建站" target="_blank" rel="noopener"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=http://yoursite.com/2020/05/25/Hexo-%E5%BB%BA%E7%AB%99/&is_video=false&description=Hexo 建站" target="_blank" rel="noopener"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=Hexo 建站&body=Check out this article: http://yoursite.com/2020/05/25/Hexo-%E5%BB%BA%E7%AB%99/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=http://yoursite.com/2020/05/25/Hexo-%E5%BB%BA%E7%AB%99/&title=Hexo 建站" target="_blank" rel="noopener"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=http://yoursite.com/2020/05/25/Hexo-%E5%BB%BA%E7%AB%99/&title=Hexo 建站" target="_blank" rel="noopener"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=http://yoursite.com/2020/05/25/Hexo-%E5%BB%BA%E7%AB%99/&title=Hexo 建站" target="_blank" rel="noopener"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=http://yoursite.com/2020/05/25/Hexo-%E5%BB%BA%E7%AB%99/&title=Hexo 建站" target="_blank" rel="noopener"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=http://yoursite.com/2020/05/25/Hexo-%E5%BB%BA%E7%AB%99/&name=Hexo 建站&description=&lt;p&gt;Hexo 是一个快速、简洁且高效的博客框架。Hexo 使用 Markdown（或其他渲染引擎）解析文章，在几秒内，即可利用靓丽的主题生成静态网页。&lt;/p&gt;
+&lt;p&gt;这里我把个人博客托管在 GitHub Pages 上。GitHub Pages 是一种静态站点托管服务，每个 GitHub 帐户或组织都可以有一个站点。&lt;/p&gt;"><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://news.ycombinator.com/submitlink?u=http://yoursite.com/2020/05/25/Hexo-%E5%BB%BA%E7%AB%99/&t=Hexo 建站" target="_blank" rel="noopener"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fas fa-bars fa-lg" aria-hidden="true"></i> 菜单</a>
+        <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fas fa-list fa-lg" aria-hidden="true"></i> 目录</a>
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fas fa-share-alt fa-lg" aria-hidden="true"></i> 分享</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up fa-lg" aria-hidden="true"></i> 返回顶部</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
+    
+    
+    2019-2020
+    DaHu An
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+         
+          <li><a href="/">首页</a></li>
+         
+          <li><a href="/about/">关于</a></li>
+         
+          <li><a href="/archives/">归档</a></li>
+         
+          <li><a href="https://github.com/Mrrabbitan" target="_blank" rel="noopener">项目</a></li>
+        
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+    </div>
+    <!-- styles -->
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+
+<link rel="stylesheet" href="/lib/justified-gallery/css/justifiedGallery.min.css">
+
+
+    <!-- jquery -->
+
+<script src="/lib/jquery/jquery.min.js"></script>
+
+
+<script src="/lib/justified-gallery/js/jquery.justifiedGallery.min.js"></script>
+
+<!-- clipboard -->
+
+  
+<script src="/lib/clipboard/clipboard.min.js"></script>
+
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"复制到粘贴板!\">";
+    btn += '<i class="far fa-clone"></i>';
+    btn += '</span>'; 
+    // mount it!
+    $(".highlight table").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      text: function(trigger) {
+        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "复制成功!");
+      e.clearSelection();
+    })
+  })
+  </script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- search -->
+
+<!-- Google Analytics -->
+
+<!-- Baidu Analytics -->
+
+<!-- Disqus Comments -->
+
+
+</body>
+</html>
