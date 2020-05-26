@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang=zh>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <meta name="description" content="ROS作为当前主流的机器人操作系统，虽然说到Melodic版本已经支持了Ubuntu, Debian, Win10, 还有测试的MacOS等版本，但是大家基本还是在Ubuntu上玩ROS的，要么虚拟机要么双系统之类的，这的确是解决了部分ROS初学者的痛点。但是ROS2GO或多或少还存在着一些问题，只能说能handle市面上大部分的电脑型号，具体能否使用还得试了才知道，比如说高贵的苹果爸爸不开源MB">
+<meta property="og:type" content="article">
+<meta property="og:title" content="基于docker镜像的开发手册--配置篇">
+<meta property="og:url" content="http://yoursite.com/2020/05/26/%E5%9F%BA%E4%BA%8Edocker%E9%95%9C%E5%83%8F%E7%9A%84%E5%BC%80%E5%8F%91%E6%89%8B%E5%86%8C-%E9%85%8D%E7%BD%AE%E7%AF%87/index.html">
+<meta property="og:site_name" content="虎·馆">
+<meta property="og:description" content="ROS作为当前主流的机器人操作系统，虽然说到Melodic版本已经支持了Ubuntu, Debian, Win10, 还有测试的MacOS等版本，但是大家基本还是在Ubuntu上玩ROS的，要么虚拟机要么双系统之类的，这的确是解决了部分ROS初学者的痛点。但是ROS2GO或多或少还存在着一些问题，只能说能handle市面上大部分的电脑型号，具体能否使用还得试了才知道，比如说高贵的苹果爸爸不开源MB">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2020-05-26T15:35:24.000Z">
+<meta property="article:modified_time" content="2020-05-26T16:18:54.482Z">
+<meta property="article:author" content="DaHu An">
+<meta property="article:tag" content="docker">
+<meta name="twitter:card" content="summary">
+    
+    
+        
+          
+              <link rel="shortcut icon" href="/images/tiger.ico">
+          
+        
+        
+          
+            <link rel="icon" type="image/png" href="/images/tiger.png" sizes="192x192">
+          
+        
+        
+          
+            <link rel="apple-touch-icon" sizes="180x180" href="/images/tiger.png">
+          
+        
+    
+    <!-- title -->
+    <title>基于docker镜像的开发手册--配置篇</title>
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- persian styles -->
+    
+      
+<link rel="stylesheet" href="/css/rtl.css">
+
+    
+    <!-- rss -->
+    
+    
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fas fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+         
+          <li><a href="/">首页</a></li>
+         
+          <li><a href="/about/">关于</a></li>
+         
+          <li><a href="/archives/">归档</a></li>
+         
+          <li><a href="https://github.com/Mrrabbitan" target="_blank" rel="noopener">项目</a></li>
+        
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        
+        <li><a class="icon" href="/2020/05/25/Hexo-%E5%BB%BA%E7%AB%99/"><i class="fas fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" href="#"><i class="fas fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">上一篇</span>
+      <span id="i-next" class="info" style="display:none;">下一篇</span>
+      <span id="i-top" class="info" style="display:none;">返回顶部</span>
+      <span id="i-share" class="info" style="display:none;">分享文章</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=http://yoursite.com/2020/05/26/%E5%9F%BA%E4%BA%8Edocker%E9%95%9C%E5%83%8F%E7%9A%84%E5%BC%80%E5%8F%91%E6%89%8B%E5%86%8C-%E9%85%8D%E7%BD%AE%E7%AF%87/" target="_blank" rel="noopener"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=http://yoursite.com/2020/05/26/%E5%9F%BA%E4%BA%8Edocker%E9%95%9C%E5%83%8F%E7%9A%84%E5%BC%80%E5%8F%91%E6%89%8B%E5%86%8C-%E9%85%8D%E7%BD%AE%E7%AF%87/&text=基于docker镜像的开发手册--配置篇" target="_blank" rel="noopener"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=http://yoursite.com/2020/05/26/%E5%9F%BA%E4%BA%8Edocker%E9%95%9C%E5%83%8F%E7%9A%84%E5%BC%80%E5%8F%91%E6%89%8B%E5%86%8C-%E9%85%8D%E7%BD%AE%E7%AF%87/&title=基于docker镜像的开发手册--配置篇" target="_blank" rel="noopener"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=http://yoursite.com/2020/05/26/%E5%9F%BA%E4%BA%8Edocker%E9%95%9C%E5%83%8F%E7%9A%84%E5%BC%80%E5%8F%91%E6%89%8B%E5%86%8C-%E9%85%8D%E7%BD%AE%E7%AF%87/&is_video=false&description=基于docker镜像的开发手册--配置篇" target="_blank" rel="noopener"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=基于docker镜像的开发手册--配置篇&body=Check out this article: http://yoursite.com/2020/05/26/%E5%9F%BA%E4%BA%8Edocker%E9%95%9C%E5%83%8F%E7%9A%84%E5%BC%80%E5%8F%91%E6%89%8B%E5%86%8C-%E9%85%8D%E7%BD%AE%E7%AF%87/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=http://yoursite.com/2020/05/26/%E5%9F%BA%E4%BA%8Edocker%E9%95%9C%E5%83%8F%E7%9A%84%E5%BC%80%E5%8F%91%E6%89%8B%E5%86%8C-%E9%85%8D%E7%BD%AE%E7%AF%87/&title=基于docker镜像的开发手册--配置篇" target="_blank" rel="noopener"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=http://yoursite.com/2020/05/26/%E5%9F%BA%E4%BA%8Edocker%E9%95%9C%E5%83%8F%E7%9A%84%E5%BC%80%E5%8F%91%E6%89%8B%E5%86%8C-%E9%85%8D%E7%BD%AE%E7%AF%87/&title=基于docker镜像的开发手册--配置篇" target="_blank" rel="noopener"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=http://yoursite.com/2020/05/26/%E5%9F%BA%E4%BA%8Edocker%E9%95%9C%E5%83%8F%E7%9A%84%E5%BC%80%E5%8F%91%E6%89%8B%E5%86%8C-%E9%85%8D%E7%BD%AE%E7%AF%87/&title=基于docker镜像的开发手册--配置篇" target="_blank" rel="noopener"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=http://yoursite.com/2020/05/26/%E5%9F%BA%E4%BA%8Edocker%E9%95%9C%E5%83%8F%E7%9A%84%E5%BC%80%E5%8F%91%E6%89%8B%E5%86%8C-%E9%85%8D%E7%BD%AE%E7%AF%87/&title=基于docker镜像的开发手册--配置篇" target="_blank" rel="noopener"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=http://yoursite.com/2020/05/26/%E5%9F%BA%E4%BA%8Edocker%E9%95%9C%E5%83%8F%E7%9A%84%E5%BC%80%E5%8F%91%E6%89%8B%E5%86%8C-%E9%85%8D%E7%BD%AE%E7%AF%87/&name=基于docker镜像的开发手册--配置篇&description=" target="_blank" rel="noopener"><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://news.ycombinator.com/submitlink?u=http://yoursite.com/2020/05/26/%E5%9F%BA%E4%BA%8Edocker%E9%95%9C%E5%83%8F%E7%9A%84%E5%BC%80%E5%8F%91%E6%89%8B%E5%86%8C-%E9%85%8D%E7%BD%AE%E7%AF%87/&t=基于docker镜像的开发手册--配置篇" target="_blank" rel="noopener"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    <div id="toc">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#装好Docker"><span class="toc-number">1.</span> <span class="toc-text">装好Docker</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#下载ROS的Docker镜像"><span class="toc-number">2.</span> <span class="toc-text">下载ROS的Docker镜像</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#使用这个Docker镜像"><span class="toc-number">3.</span> <span class="toc-text">使用这个Docker镜像</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#生成Container"><span class="toc-number">3.1.</span> <span class="toc-text">生成Container</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#开发"><span class="toc-number">4.</span> <span class="toc-text">开发</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#不使用vscode"><span class="toc-number">4.1.</span> <span class="toc-text">不使用vscode</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#使用vscode"><span class="toc-number">4.2.</span> <span class="toc-text">使用vscode</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#学好docker，走遍中台都不怕"><span class="toc-number">5.</span> <span class="toc-text">学好docker，走遍中台都不怕</span></a></li></ol>
+    </div>
+  </span>
+</div>
+
+    
+    <div class="content index py4">
+        
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle" itemprop="name headline">
+        基于docker镜像的开发手册--配置篇
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name">虎·馆</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2020-05-26T15:35:24.000Z" itemprop="datePublished">2020-05-26</time>
+        
+        (Updated: <time datetime="2020-05-26T16:18:54.482Z" itemprop="dateModified">2020-05-27</time>)
+        
+      
+    </div>
+
+
+      
+
+      
+    <div class="article-tag">
+        <i class="fas fa-tag"></i>
+        <a class="tag-link" href="/tags/docker/" rel="tag">docker</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+
+  <div class="content" itemprop="articleBody">
+    <p>ROS作为当前主流的机器人操作系统，虽然说到Melodic版本已经支持了Ubuntu, Debian, Win10, 还有测试的MacOS等版本，但是大家基本还是在Ubuntu上玩ROS的，要么虚拟机要么双系统之类的，这的确是解决了部分ROS初学者的痛点。但是ROS2GO或多或少还存在着一些问题，只能说能handle市面上大部分的电脑型号，具体能否使用还得试了才知道，比如说高贵的苹果爸爸不开源MBP的硬件驱动，2015款之后的Mac插上ROS2GO是用不了鼠标键盘网卡之类的设备的，只能通过外接设备解决，which looks terrible.</p>
+<p>用了Mac做无人驾驶的开发，才发现用它来ROS开发是多么痛苦😭o(╥﹏╥)o，开虚拟机烫的可以煎鸡蛋，双系统有各种驱动问题，怎么用怎么不舒服。后来发现可以通过Docker来解决多年来的困扰，在此记录下来以供其他使用Mac的同学愉快的开发ROS。</p>
+<h2 id="装好Docker"><a href="#装好Docker" class="headerlink" title="装好Docker"></a>装好Docker</h2><p>在Docker官网上下载好Docker并安装就OK了，对于没有接触过Docker的同学，可以参考这份手册底部的网站，过一遍应该就能熟悉Docker了。</p>
+<h2 id="下载ROS的Docker镜像"><a href="#下载ROS的Docker镜像" class="headerlink" title="下载ROS的Docker镜像"></a>下载ROS的Docker镜像</h2><p>由于在使用ROS时会需要gazebo, rviz, rqt等工具来仿真或者查看当前状态等，所以不能直接使用ros官方提供的Docker镜像，那个镜像无法打开GUI程序。所以这里有两个选择：</p>
+<p>解决Docker打开GUI程序的显示问题。网上有各种教学说通过配置各种软件来实现这个需求，我也不在此细说（没有试过，大概率会碰到各种坑）。</p>
+<p>偶然间找到了一个非常高质量的Docker镜像，链接：<a href="https://hub.docker.com/r/ct2034/vnc-ros-kinetic-full" target="_blank" rel="noopener">https://hub.docker.com/r/ct2034/vnc-ros-kinetic-full</a> . 使用之后发现初次打开gazebo还是会加载各类素材文件的（网络不科学会非常慢），所以我在这个版本上增加了这部分内容，新的Docker镜像链接为：<a href="https://hub.docker.com/r/yz16/my_ros" target="_blank" rel="noopener">https://hub.docker.com/r/yz16/my_ros</a> . 同学们可以使用下方命令来下载。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker pull yz16/my_ros</span><br></pre></td></tr></table></figure>
+
+
+<h2 id="使用这个Docker镜像"><a href="#使用这个Docker镜像" class="headerlink" title="使用这个Docker镜像"></a>使用这个Docker镜像</h2><h3 id="生成Container"><a href="#生成Container" class="headerlink" title="生成Container"></a>生成Container</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">docker run --name ros_env（随便起个名字） \</span><br><span class="line">--mount <span class="built_in">type</span>=<span class="built_in">bind</span>,<span class="built_in">source</span>=/Users/anzp/Download,target=/root/ros_workspaces \</span><br><span class="line">-itd -p 6777:811 yz16/my_ros</span><br></pre></td></tr></table></figure>
+<p>浏览器打开 <a href="http://127.0.0.1:6080" target="_blank" rel="noopener">http://127.0.0.1:6080</a> 然后就可以愉快的玩耍了。</p>
+<p>这里说明一点：虽然Docker说是可以看做精简版的虚拟机，但是并不能真的当虚拟机使用，由于Docker的层级机制，导致每次往Container里增加东西或者删除文件，只会不断增加Docker image的层数（文件越来越大）。所以正确的使用方法是把Container当做一个处理文件的程序（类比Word软件和*.docx文件），将我们主机的文件系统挂载到Container当中。</p>
+<p>不用了就直接</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker stop ros_env</span><br></pre></td></tr></table></figure>
+<p>再需要了就</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker start ros_env</span><br></pre></td></tr></table></figure>
+<h2 id="开发"><a href="#开发" class="headerlink" title="开发"></a>开发</h2><h3 id="不使用vscode"><a href="#不使用vscode" class="headerlink" title="不使用vscode"></a>不使用vscode</h3><p>直接使用vim开发的小伙伴看这里，在docker run生成容器之后，运行</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker <span class="built_in">exec</span> -it yz16 /bin/bash</span><br></pre></td></tr></table></figure>
+<p>在容器内执行/bin/bash,之后source上相应的bash</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">source</span> /opt/ros/kinetic/setup.bash</span><br></pre></td></tr></table></figure>
+
+<p>查看全部镜像容器</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker ps -a</span><br></pre></td></tr></table></figure>
+
+<p>docker的常用命令</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br></pre></td><td class="code"><pre><span class="line">Management Commands:</span><br><span class="line">  builder     Manage builds</span><br><span class="line">  config      Manage Docker configs</span><br><span class="line">  container   Manage containers</span><br><span class="line">  context     Manage contexts</span><br><span class="line">  image       Manage images</span><br><span class="line">  network     Manage networks</span><br><span class="line">  node        Manage Swarm nodes</span><br><span class="line">  plugin      Manage plugins</span><br><span class="line">  secret      Manage Docker secrets</span><br><span class="line">  service     Manage services</span><br><span class="line">  stack       Manage Docker stacks</span><br><span class="line">  swarm       Manage Swarm</span><br><span class="line">  system      Manage Docker</span><br><span class="line">  trust       Manage trust on Docker images</span><br><span class="line">  volume      Manage volumes</span><br><span class="line"></span><br><span class="line">Commands:</span><br><span class="line">  attach      Attach <span class="built_in">local</span> standard input, output, and error streams to a running container</span><br><span class="line">  build       Build an image from a Dockerfile</span><br><span class="line">  commit      Create a new image from a container<span class="string">'s changes</span></span><br><span class="line"><span class="string">  cp          Copy files/folders between a container and the local filesystem</span></span><br><span class="line"><span class="string">  create      Create a new container</span></span><br><span class="line"><span class="string">  deploy      Deploy a new stack or update an existing stack</span></span><br><span class="line"><span class="string">  diff        Inspect changes to files or directories on a container'</span>s filesystem</span><br><span class="line">  events      Get real time events from the server</span><br><span class="line">  <span class="built_in">exec</span>        Run a <span class="built_in">command</span> <span class="keyword">in</span> a running container</span><br><span class="line">  <span class="built_in">export</span>      Export a container<span class="string">'s filesystem as a tar archive</span></span><br><span class="line"><span class="string">  history     Show the history of an image</span></span><br><span class="line"><span class="string">  images      List images</span></span><br><span class="line"><span class="string">  import      Import the contents from a tarball to create a filesystem image</span></span><br><span class="line"><span class="string">  info        Display system-wide information</span></span><br><span class="line"><span class="string">  inspect     Return low-level information on Docker objects</span></span><br><span class="line"><span class="string">  kill        Kill one or more running containers</span></span><br><span class="line"><span class="string">  load        Load an image from a tar archive or STDIN</span></span><br><span class="line"><span class="string">  login       Log in to a Docker registry</span></span><br><span class="line"><span class="string">  logout      Log out from a Docker registry</span></span><br><span class="line"><span class="string">  logs        Fetch the logs of a container</span></span><br><span class="line"><span class="string">  pause       Pause all processes within one or more containers</span></span><br><span class="line"><span class="string">  port        List port mappings or a specific mapping for the container</span></span><br><span class="line"><span class="string">  ps          List containers</span></span><br><span class="line"><span class="string">  pull        Pull an image or a repository from a registry</span></span><br><span class="line"><span class="string">  push        Push an image or a repository to a registry</span></span><br><span class="line"><span class="string">  rename      Rename a container</span></span><br><span class="line"><span class="string">  restart     Restart one or more containers</span></span><br><span class="line"><span class="string">  rm          Remove one or more containers</span></span><br><span class="line"><span class="string">  rmi         Remove one or more images</span></span><br><span class="line"><span class="string">  run         Run a command in a new container</span></span><br><span class="line"><span class="string">  save        Save one or more images to a tar archive (streamed to STDOUT by default)</span></span><br><span class="line"><span class="string">  search      Search the Docker Hub for images</span></span><br><span class="line"><span class="string">  start       Start one or more stopped containers</span></span><br><span class="line"><span class="string">  stats       Display a live stream of container(s) resource usage statistics</span></span><br><span class="line"><span class="string">  stop        Stop one or more running containers</span></span><br><span class="line"><span class="string">  tag         Create a tag TARGET_IMAGE that refers to SOURCE_IMAGE</span></span><br><span class="line"><span class="string">  top         Display the running processes of a container</span></span><br><span class="line"><span class="string">  unpause     Unpause all processes within one or more containers</span></span><br><span class="line"><span class="string">  update      Update configuration of one or more containers</span></span><br><span class="line"><span class="string">  version     Show the Docker version information</span></span><br><span class="line"><span class="string">  wait        Block until one or more containers stop, then print their exit codes</span></span><br></pre></td></tr></table></figure>
+<h3 id="使用vscode"><a href="#使用vscode" class="headerlink" title="使用vscode"></a>使用vscode</h3><p>我使用的是VS code进行软件的开发，同时VS code也支持插件导入相应的项目，请参考以下文章<br><a href="https://code.visualstudio.com/docs/remote/containers" target="_blank" rel="noopener">vscode镜像插件</a>必看！！！</p>
+<h2 id="学好docker，走遍中台都不怕"><a href="#学好docker，走遍中台都不怕" class="headerlink" title="学好docker，走遍中台都不怕"></a>学好docker，走遍中台都不怕</h2><p><a href="https://yeasy.gitbook.io/docker_practice/ide/vscode" target="_blank" rel="noopener">轻松掌握docker</a></p>
+
+  </div>
+</article>
+
+
+
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+         
+          <li><a href="/">首页</a></li>
+         
+          <li><a href="/about/">关于</a></li>
+         
+          <li><a href="/archives/">归档</a></li>
+         
+          <li><a href="https://github.com/Mrrabbitan" target="_blank" rel="noopener">项目</a></li>
+        
+      </ul>
+    </div>
+
+    <div id="toc-footer" style="display: none">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#装好Docker"><span class="toc-number">1.</span> <span class="toc-text">装好Docker</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#下载ROS的Docker镜像"><span class="toc-number">2.</span> <span class="toc-text">下载ROS的Docker镜像</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#使用这个Docker镜像"><span class="toc-number">3.</span> <span class="toc-text">使用这个Docker镜像</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#生成Container"><span class="toc-number">3.1.</span> <span class="toc-text">生成Container</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#开发"><span class="toc-number">4.</span> <span class="toc-text">开发</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#不使用vscode"><span class="toc-number">4.1.</span> <span class="toc-text">不使用vscode</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#使用vscode"><span class="toc-number">4.2.</span> <span class="toc-text">使用vscode</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#学好docker，走遍中台都不怕"><span class="toc-number">5.</span> <span class="toc-text">学好docker，走遍中台都不怕</span></a></li></ol>
+    </div>
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=http://yoursite.com/2020/05/26/%E5%9F%BA%E4%BA%8Edocker%E9%95%9C%E5%83%8F%E7%9A%84%E5%BC%80%E5%8F%91%E6%89%8B%E5%86%8C-%E9%85%8D%E7%BD%AE%E7%AF%87/" target="_blank" rel="noopener"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=http://yoursite.com/2020/05/26/%E5%9F%BA%E4%BA%8Edocker%E9%95%9C%E5%83%8F%E7%9A%84%E5%BC%80%E5%8F%91%E6%89%8B%E5%86%8C-%E9%85%8D%E7%BD%AE%E7%AF%87/&text=基于docker镜像的开发手册--配置篇" target="_blank" rel="noopener"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=http://yoursite.com/2020/05/26/%E5%9F%BA%E4%BA%8Edocker%E9%95%9C%E5%83%8F%E7%9A%84%E5%BC%80%E5%8F%91%E6%89%8B%E5%86%8C-%E9%85%8D%E7%BD%AE%E7%AF%87/&title=基于docker镜像的开发手册--配置篇" target="_blank" rel="noopener"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=http://yoursite.com/2020/05/26/%E5%9F%BA%E4%BA%8Edocker%E9%95%9C%E5%83%8F%E7%9A%84%E5%BC%80%E5%8F%91%E6%89%8B%E5%86%8C-%E9%85%8D%E7%BD%AE%E7%AF%87/&is_video=false&description=基于docker镜像的开发手册--配置篇" target="_blank" rel="noopener"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=基于docker镜像的开发手册--配置篇&body=Check out this article: http://yoursite.com/2020/05/26/%E5%9F%BA%E4%BA%8Edocker%E9%95%9C%E5%83%8F%E7%9A%84%E5%BC%80%E5%8F%91%E6%89%8B%E5%86%8C-%E9%85%8D%E7%BD%AE%E7%AF%87/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=http://yoursite.com/2020/05/26/%E5%9F%BA%E4%BA%8Edocker%E9%95%9C%E5%83%8F%E7%9A%84%E5%BC%80%E5%8F%91%E6%89%8B%E5%86%8C-%E9%85%8D%E7%BD%AE%E7%AF%87/&title=基于docker镜像的开发手册--配置篇" target="_blank" rel="noopener"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=http://yoursite.com/2020/05/26/%E5%9F%BA%E4%BA%8Edocker%E9%95%9C%E5%83%8F%E7%9A%84%E5%BC%80%E5%8F%91%E6%89%8B%E5%86%8C-%E9%85%8D%E7%BD%AE%E7%AF%87/&title=基于docker镜像的开发手册--配置篇" target="_blank" rel="noopener"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=http://yoursite.com/2020/05/26/%E5%9F%BA%E4%BA%8Edocker%E9%95%9C%E5%83%8F%E7%9A%84%E5%BC%80%E5%8F%91%E6%89%8B%E5%86%8C-%E9%85%8D%E7%BD%AE%E7%AF%87/&title=基于docker镜像的开发手册--配置篇" target="_blank" rel="noopener"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=http://yoursite.com/2020/05/26/%E5%9F%BA%E4%BA%8Edocker%E9%95%9C%E5%83%8F%E7%9A%84%E5%BC%80%E5%8F%91%E6%89%8B%E5%86%8C-%E9%85%8D%E7%BD%AE%E7%AF%87/&title=基于docker镜像的开发手册--配置篇" target="_blank" rel="noopener"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=http://yoursite.com/2020/05/26/%E5%9F%BA%E4%BA%8Edocker%E9%95%9C%E5%83%8F%E7%9A%84%E5%BC%80%E5%8F%91%E6%89%8B%E5%86%8C-%E9%85%8D%E7%BD%AE%E7%AF%87/&name=基于docker镜像的开发手册--配置篇&description=" target="_blank" rel="noopener"><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://news.ycombinator.com/submitlink?u=http://yoursite.com/2020/05/26/%E5%9F%BA%E4%BA%8Edocker%E9%95%9C%E5%83%8F%E7%9A%84%E5%BC%80%E5%8F%91%E6%89%8B%E5%86%8C-%E9%85%8D%E7%BD%AE%E7%AF%87/&t=基于docker镜像的开发手册--配置篇" target="_blank" rel="noopener"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fas fa-bars fa-lg" aria-hidden="true"></i> 菜单</a>
+        <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fas fa-list fa-lg" aria-hidden="true"></i> 目录</a>
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fas fa-share-alt fa-lg" aria-hidden="true"></i> 分享</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up fa-lg" aria-hidden="true"></i> 返回顶部</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
+    
+    
+    2019-2020
+    DaHu An
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+         
+          <li><a href="/">首页</a></li>
+         
+          <li><a href="/about/">关于</a></li>
+         
+          <li><a href="/archives/">归档</a></li>
+         
+          <li><a href="https://github.com/Mrrabbitan" target="_blank" rel="noopener">项目</a></li>
+        
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+    </div>
+    <!-- styles -->
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+
+<link rel="stylesheet" href="/lib/justified-gallery/css/justifiedGallery.min.css">
+
+
+    <!-- jquery -->
+
+<script src="/lib/jquery/jquery.min.js"></script>
+
+
+<script src="/lib/justified-gallery/js/jquery.justifiedGallery.min.js"></script>
+
+<!-- clipboard -->
+
+  
+<script src="/lib/clipboard/clipboard.min.js"></script>
+
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"复制到粘贴板!\">";
+    btn += '<i class="far fa-clone"></i>';
+    btn += '</span>'; 
+    // mount it!
+    $(".highlight table").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      text: function(trigger) {
+        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "复制成功!");
+      e.clearSelection();
+    })
+  })
+  </script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- search -->
+
+<!-- Google Analytics -->
+
+<!-- Baidu Analytics -->
+
+<!-- Disqus Comments -->
+
+
+</body>
+</html>
