@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang=zh>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <meta name="description" content="简介Time to First Byte(TTFB)是前端开发人员很容易忽略的指标，因为在现实的开发中我们经常会忽略他的重要性。不过，据我了解，TTFB对前端性能来说不一定是一个最重要的指标，但TTFB时间过长一定会意味着网页性能差。 作为前端开发者，你可能没有能力独自对 TTFB 进行改进。但你必须要知道，TTFB时间过长的问题会影响页面性能。你做的其他优化，比如异步加载网页字体、前端性能优化这">
+<meta property="og:type" content="article">
+<meta property="og:title" content="TTFB对前端的重要性">
+<meta property="og:url" content="http://yoursite.com/2020/06/01/TTFB%E5%AF%B9%E5%89%8D%E7%AB%AF%E7%9A%84%E9%87%8D%E8%A6%81%E6%80%A7/index.html">
+<meta property="og:site_name" content="虎·馆">
+<meta property="og:description" content="简介Time to First Byte(TTFB)是前端开发人员很容易忽略的指标，因为在现实的开发中我们经常会忽略他的重要性。不过，据我了解，TTFB对前端性能来说不一定是一个最重要的指标，但TTFB时间过长一定会意味着网页性能差。 作为前端开发者，你可能没有能力独自对 TTFB 进行改进。但你必须要知道，TTFB时间过长的问题会影响页面性能。你做的其他优化，比如异步加载网页字体、前端性能优化这">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2020-06-01T14:44:40.000Z">
+<meta property="article:modified_time" content="2020-06-01T15:33:57.423Z">
+<meta property="article:author" content="DaHu An">
+<meta property="article:tag" content="前端性能">
+<meta name="twitter:card" content="summary">
+    
+    
+        
+          
+              <link rel="shortcut icon" href="/images/tiger.ico">
+          
+        
+        
+          
+            <link rel="icon" type="image/png" href="/images/tiger.png" sizes="192x192">
+          
+        
+        
+          
+            <link rel="apple-touch-icon" sizes="180x180" href="/images/tiger.png">
+          
+        
+    
+    <!-- title -->
+    <title>TTFB对前端的重要性</title>
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- persian styles -->
+    
+      
+<link rel="stylesheet" href="/css/rtl.css">
+
+    
+    <!-- rss -->
+    
+    
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fas fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+         
+          <li><a href="/">首页</a></li>
+         
+          <li><a href="/about/">关于</a></li>
+         
+          <li><a href="/archives/">归档</a></li>
+         
+          <li><a href="https://github.com/Mrrabbitan" target="_blank" rel="noopener">项目</a></li>
+        
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        
+        <li><a class="icon" href="/2020/05/26/%E5%9F%BA%E4%BA%8Edocker%E9%95%9C%E5%83%8F%E7%9A%84%E5%BC%80%E5%8F%91%E6%89%8B%E5%86%8C-%E9%85%8D%E7%BD%AE%E7%AF%87/"><i class="fas fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" href="#"><i class="fas fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">上一篇</span>
+      <span id="i-next" class="info" style="display:none;">下一篇</span>
+      <span id="i-top" class="info" style="display:none;">返回顶部</span>
+      <span id="i-share" class="info" style="display:none;">分享文章</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=http://yoursite.com/2020/06/01/TTFB%E5%AF%B9%E5%89%8D%E7%AB%AF%E7%9A%84%E9%87%8D%E8%A6%81%E6%80%A7/" target="_blank" rel="noopener"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=http://yoursite.com/2020/06/01/TTFB%E5%AF%B9%E5%89%8D%E7%AB%AF%E7%9A%84%E9%87%8D%E8%A6%81%E6%80%A7/&text=TTFB对前端的重要性" target="_blank" rel="noopener"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=http://yoursite.com/2020/06/01/TTFB%E5%AF%B9%E5%89%8D%E7%AB%AF%E7%9A%84%E9%87%8D%E8%A6%81%E6%80%A7/&title=TTFB对前端的重要性" target="_blank" rel="noopener"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=http://yoursite.com/2020/06/01/TTFB%E5%AF%B9%E5%89%8D%E7%AB%AF%E7%9A%84%E9%87%8D%E8%A6%81%E6%80%A7/&is_video=false&description=TTFB对前端的重要性" target="_blank" rel="noopener"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=TTFB对前端的重要性&body=Check out this article: http://yoursite.com/2020/06/01/TTFB%E5%AF%B9%E5%89%8D%E7%AB%AF%E7%9A%84%E9%87%8D%E8%A6%81%E6%80%A7/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=http://yoursite.com/2020/06/01/TTFB%E5%AF%B9%E5%89%8D%E7%AB%AF%E7%9A%84%E9%87%8D%E8%A6%81%E6%80%A7/&title=TTFB对前端的重要性" target="_blank" rel="noopener"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=http://yoursite.com/2020/06/01/TTFB%E5%AF%B9%E5%89%8D%E7%AB%AF%E7%9A%84%E9%87%8D%E8%A6%81%E6%80%A7/&title=TTFB对前端的重要性" target="_blank" rel="noopener"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=http://yoursite.com/2020/06/01/TTFB%E5%AF%B9%E5%89%8D%E7%AB%AF%E7%9A%84%E9%87%8D%E8%A6%81%E6%80%A7/&title=TTFB对前端的重要性" target="_blank" rel="noopener"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=http://yoursite.com/2020/06/01/TTFB%E5%AF%B9%E5%89%8D%E7%AB%AF%E7%9A%84%E9%87%8D%E8%A6%81%E6%80%A7/&title=TTFB对前端的重要性" target="_blank" rel="noopener"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=http://yoursite.com/2020/06/01/TTFB%E5%AF%B9%E5%89%8D%E7%AB%AF%E7%9A%84%E9%87%8D%E8%A6%81%E6%80%A7/&name=TTFB对前端的重要性&description=" target="_blank" rel="noopener"><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://news.ycombinator.com/submitlink?u=http://yoursite.com/2020/06/01/TTFB%E5%AF%B9%E5%89%8D%E7%AB%AF%E7%9A%84%E9%87%8D%E8%A6%81%E6%80%A7/&t=TTFB对前端的重要性" target="_blank" rel="noopener"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    <div id="toc">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#简介"><span class="toc-number">1.</span> <span class="toc-text">简介</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#什么是-TTFB？"><span class="toc-number">2.</span> <span class="toc-text">什么是 TTFB？</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#关键"><span class="toc-number">2.1.</span> <span class="toc-text">关键</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1、延迟"><span class="toc-number">2.2.</span> <span class="toc-text">1、延迟</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2、路由"><span class="toc-number">2.3.</span> <span class="toc-text">2、路由</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3、文件读取"><span class="toc-number">2.4.</span> <span class="toc-text">3、文件读取</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4、http优先级"><span class="toc-number">2.5.</span> <span class="toc-text">4、http优先级</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5、运行成本"><span class="toc-number">2.6.</span> <span class="toc-text">5、运行成本</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6、数据库查询"><span class="toc-number">2.7.</span> <span class="toc-text">6、数据库查询</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#7、API-调用"><span class="toc-number">2.8.</span> <span class="toc-text">7、API 调用</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#8、服务器端渲染"><span class="toc-number">2.9.</span> <span class="toc-text">8、服务器端渲染</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#9、廉价的托管服务器"><span class="toc-number">2.10.</span> <span class="toc-text">9、廉价的托管服务器</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#10、DDoS-或高负载"><span class="toc-number">2.11.</span> <span class="toc-text">10、DDoS 或高负载</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#11、WAFs-和负载均衡器"><span class="toc-number">2.12.</span> <span class="toc-text">11、WAFs 和负载均衡器</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#其他影响因素"><span class="toc-number">2.13.</span> <span class="toc-text">其他影响因素</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#揭开-TTFB-的神秘面纱"><span class="toc-number">3.</span> <span class="toc-text">揭开 TTFB 的神秘面纱</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#总结"><span class="toc-number">4.</span> <span class="toc-text">总结</span></a></li></ol>
+    </div>
+  </span>
+</div>
+
+    
+    <div class="content index py4">
+        
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle" itemprop="name headline">
+        TTFB对前端的重要性
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name">虎·馆</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2020-06-01T14:44:40.000Z" itemprop="datePublished">2020-06-01</time>
+        
+        (Updated: <time datetime="2020-06-01T15:33:57.423Z" itemprop="dateModified">2020-06-01</time>)
+        
+      
+    </div>
+
+
+      
+
+      
+    <div class="article-tag">
+        <i class="fas fa-tag"></i>
+        <a class="tag-link" href="/tags/%E5%89%8D%E7%AB%AF%E6%80%A7%E8%83%BD/" rel="tag">前端性能</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+
+  <div class="content" itemprop="articleBody">
+    <h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>Time to First Byte(TTFB)是前端开发人员很容易忽略的指标，因为在现实的开发中我们经常会忽略他的重要性。不过，据我了解，TTFB对前端性能来说不一定是一个最重要的指标，但TTFB时间过长一定会意味着网页性能差。</p>
+<p>作为前端开发者，你可能没有能力独自对 TTFB 进行改进。但你必须要知道，TTFB时间过长的问题会影响页面性能。你做的其他优化，比如异步加载网页字体、前端性能优化这些都会受到影响。所以你应该优先解决TTFB带来的问题。</p>
+<h2 id="什么是-TTFB？"><a href="#什么是-TTFB？" class="headerlink" title="什么是 TTFB？"></a>什么是 TTFB？</h2><p>TTFB 包含了许多不同的东西，但由于具体细节不好分别描述，因此我们经常会忽略它。很多人以为 TTFB 的最大原因是在服务器端的时间，这其实只是其中影响很小的一部分。</p>
+<h3 id="关键"><a href="#关键" class="headerlink" title="关键"></a>关键</h3><p>TTFB 计算的是整个延迟的往返时间。 TTFB 不仅仅是在服务器上花费的时间，还包括设备请求发送到服务器，再从服务器返回到设备的时间。</p>
+<p>TTFB 会受到延迟的影响。</p>
+<p>那 TTFB 究竟包含了哪些东西呢。</p>
+<h3 id="1、延迟"><a href="#1、延迟" class="headerlink" title="1、延迟"></a>1、延迟</h3><p>如上所述，我们计算的是从服务器接收到请求到发出响应的时间。比如：伦敦的一台设备请求纽约的一台服务器，在理想的情况下，通过光纤仅需要28毫秒，但实际情况可能会接近75毫秒。 这就是为什么我们要使用 CDN 的原因:即使在互联网时代，在地理位置上离你的客户更近也是有优势的。</p>
+<h3 id="2、路由"><a href="#2、路由" class="headerlink" title="2、路由"></a>2、路由</h3><p>如果您正在使用 CDN ，他们请求的资源不在 PoP 的缓存中时， 客户可能会被路由到源数据中心。 因此，请求路由到原始服务器，然后从那里检索它。 将大幅增加 TTFB 的时间开销。</p>
+<h3 id="3、文件读取"><a href="#3、文件读取" class="headerlink" title="3、文件读取"></a>3、文件读取</h3><p>服务器只是从文件系统读取静态文件，如图像或系统表，都是有代价的。 这些都会被计算到你的 TTFB 时间中。</p>
+<h3 id="4、http优先级"><a href="#4、http优先级" class="headerlink" title="4、http优先级"></a>4、http优先级</h3><p>HTTP 有一个优先级机制，它可以选择在服务器上停止较低优先级的响应，同时发送较高优先级的响应。 撇开 H2 优先级问题不谈，即使 H2 运行顺利，这些预期的延迟也会给你的 TTFB 带来影响。</p>
+<h3 id="5、运行成本"><a href="#5、运行成本" class="headerlink" title="5、运行成本"></a>5、运行成本</h3><p>运行时需要时间是显而易见的，所以这可能是 TTFB 时间开销中占比较重的。</p>
+<h3 id="6、数据库查询"><a href="#6、数据库查询" class="headerlink" title="6、数据库查询"></a>6、数据库查询</h3><p>页面如果需要获取来自数据库的数据，那么在对数据库进行检索时将会产生时间成本，增加 TTFB 时间。</p>
+<h3 id="7、API-调用"><a href="#7、API-调用" class="headerlink" title="7、API 调用"></a>7、API 调用</h3><p>如果您需要调用任何 API (内部或其他)来填充页面，开销将计入您的 TTFB。</p>
+<h3 id="8、服务器端渲染"><a href="#8、服务器端渲染" class="headerlink" title="8、服务器端渲染"></a>8、服务器端渲染</h3><p>服务器渲染一个页面的成本可能是微不足道的，但它仍然会增加你的 TTFB 时间。</p>
+<h3 id="9、廉价的托管服务器"><a href="#9、廉价的托管服务器" class="headerlink" title="9、廉价的托管服务器"></a>9、廉价的托管服务器</h3><p>如果托管服务器的成本高于性能，那通常意味着你要与其他网站共享一个服务器，服务器性能会降低，可能会影响你接收请求的能力，也可能在运行应用程序时出现硬件供电不足。</p>
+<h3 id="10、DDoS-或高负载"><a href="#10、DDoS-或高负载" class="headerlink" title="10、DDoS 或高负载"></a>10、DDoS 或高负载</h3><p>与上一点类似，增加负载而无法自动扩容的应用程序会达到硬件基础设施的极限，进而导致性能大幅下降。</p>
+<h3 id="11、WAFs-和负载均衡器"><a href="#11、WAFs-和负载均衡器" class="headerlink" title="11、WAFs 和负载均衡器"></a>11、WAFs 和负载均衡器</h3><p>诸如 web 应用程序防火墙 或负载均衡器之类的服务放在你的应用程序之前也会对你的 TTFB 有所拖累。</p>
+<h3 id="其他影响因素"><a href="#其他影响因素" class="headerlink" title="其他影响因素"></a>其他影响因素</h3><p>CDN 的特点: 尽管 CDN 是一个解决网络请求问题的重要方案，但在某些情况下，他们可能会增加 TTFB 时间。 例如，请求折叠、边缘端包含 等</p>
+<p>最后一英里延迟: 当我们想到伦敦的一台计算机访问纽约的一台服务器时，我们想象一下，如果我们暴力点，让两者是直接连接，行不行？ 事实上，从我们自己的路由器到我们的 ISP (互联网服务提供商) ，有一系列更加复杂的中介，从手机信号塔到海底电缆。 最后一英里延迟 处理的是到达连接终点前无法比拟的复杂连接。</p>
+<p>0 延迟的 TTFB 是不可能存在的！所以我们需要注意的是，以上列表任意项不好，不代表会使得 TTFB 时间增加。 但你看到的 TTFB 时长包含了上面各项内容。 在这里我不单独介绍某一项内容，只是介绍下这些都会影响到你的 TTFB 时长。所以现在想想，网页加载成功简直是太厉害了，堪称奇迹。</p>
+<h2 id="揭开-TTFB-的神秘面纱"><a href="#揭开-TTFB-的神秘面纱" class="headerlink" title="揭开 TTFB 的神秘面纱"></a>揭开 TTFB 的神秘面纱</h2><p>现在是不是更加了解 TTFB 了？我们可以花时间开发一个工具，在chrome 开发者工具的网络请求中来显示 服务器时间Api。帮助我们识别和调试潜在的性能问题。</p>
+<p>Server Timing API 允许开发人员在响应报头中查看的 Server-Timing HTTP 的数据，该报头包含应用程序测量自身的计时信息。</p>
+<p>这正是去年我们在 BBC iPlayer 所做的:</p>
+<p>Server-Timing Header 可以添加进任何响应头中。查看全部</p>
+<p>注意: 服务器计时不是浏览器自带的: 您需要实际测量上面列出的每一项，然后用相关数据填充服务器计时头。 浏览器所做的只是在相关工具中显示数据，使其在前端可用:</p>
+<p>为了帮助你去实现这个功能，Christopher Sidebottom 在我们优化 iPlayer 的时候写了他的服务器计时 API 的实现。</p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>理解 TTFB 对于性能提升工作是很重要的。TTFB 会有连锁反应，它的时间开销的长短会直接影响到页面性能。</p>
+<p>Happy Hacking<del>~</del></p>
+
+  </div>
+</article>
+
+
+
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+         
+          <li><a href="/">首页</a></li>
+         
+          <li><a href="/about/">关于</a></li>
+         
+          <li><a href="/archives/">归档</a></li>
+         
+          <li><a href="https://github.com/Mrrabbitan" target="_blank" rel="noopener">项目</a></li>
+        
+      </ul>
+    </div>
+
+    <div id="toc-footer" style="display: none">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#简介"><span class="toc-number">1.</span> <span class="toc-text">简介</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#什么是-TTFB？"><span class="toc-number">2.</span> <span class="toc-text">什么是 TTFB？</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#关键"><span class="toc-number">2.1.</span> <span class="toc-text">关键</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1、延迟"><span class="toc-number">2.2.</span> <span class="toc-text">1、延迟</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2、路由"><span class="toc-number">2.3.</span> <span class="toc-text">2、路由</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3、文件读取"><span class="toc-number">2.4.</span> <span class="toc-text">3、文件读取</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4、http优先级"><span class="toc-number">2.5.</span> <span class="toc-text">4、http优先级</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5、运行成本"><span class="toc-number">2.6.</span> <span class="toc-text">5、运行成本</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6、数据库查询"><span class="toc-number">2.7.</span> <span class="toc-text">6、数据库查询</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#7、API-调用"><span class="toc-number">2.8.</span> <span class="toc-text">7、API 调用</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#8、服务器端渲染"><span class="toc-number">2.9.</span> <span class="toc-text">8、服务器端渲染</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#9、廉价的托管服务器"><span class="toc-number">2.10.</span> <span class="toc-text">9、廉价的托管服务器</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#10、DDoS-或高负载"><span class="toc-number">2.11.</span> <span class="toc-text">10、DDoS 或高负载</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#11、WAFs-和负载均衡器"><span class="toc-number">2.12.</span> <span class="toc-text">11、WAFs 和负载均衡器</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#其他影响因素"><span class="toc-number">2.13.</span> <span class="toc-text">其他影响因素</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#揭开-TTFB-的神秘面纱"><span class="toc-number">3.</span> <span class="toc-text">揭开 TTFB 的神秘面纱</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#总结"><span class="toc-number">4.</span> <span class="toc-text">总结</span></a></li></ol>
+    </div>
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=http://yoursite.com/2020/06/01/TTFB%E5%AF%B9%E5%89%8D%E7%AB%AF%E7%9A%84%E9%87%8D%E8%A6%81%E6%80%A7/" target="_blank" rel="noopener"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=http://yoursite.com/2020/06/01/TTFB%E5%AF%B9%E5%89%8D%E7%AB%AF%E7%9A%84%E9%87%8D%E8%A6%81%E6%80%A7/&text=TTFB对前端的重要性" target="_blank" rel="noopener"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=http://yoursite.com/2020/06/01/TTFB%E5%AF%B9%E5%89%8D%E7%AB%AF%E7%9A%84%E9%87%8D%E8%A6%81%E6%80%A7/&title=TTFB对前端的重要性" target="_blank" rel="noopener"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=http://yoursite.com/2020/06/01/TTFB%E5%AF%B9%E5%89%8D%E7%AB%AF%E7%9A%84%E9%87%8D%E8%A6%81%E6%80%A7/&is_video=false&description=TTFB对前端的重要性" target="_blank" rel="noopener"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=TTFB对前端的重要性&body=Check out this article: http://yoursite.com/2020/06/01/TTFB%E5%AF%B9%E5%89%8D%E7%AB%AF%E7%9A%84%E9%87%8D%E8%A6%81%E6%80%A7/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=http://yoursite.com/2020/06/01/TTFB%E5%AF%B9%E5%89%8D%E7%AB%AF%E7%9A%84%E9%87%8D%E8%A6%81%E6%80%A7/&title=TTFB对前端的重要性" target="_blank" rel="noopener"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=http://yoursite.com/2020/06/01/TTFB%E5%AF%B9%E5%89%8D%E7%AB%AF%E7%9A%84%E9%87%8D%E8%A6%81%E6%80%A7/&title=TTFB对前端的重要性" target="_blank" rel="noopener"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=http://yoursite.com/2020/06/01/TTFB%E5%AF%B9%E5%89%8D%E7%AB%AF%E7%9A%84%E9%87%8D%E8%A6%81%E6%80%A7/&title=TTFB对前端的重要性" target="_blank" rel="noopener"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=http://yoursite.com/2020/06/01/TTFB%E5%AF%B9%E5%89%8D%E7%AB%AF%E7%9A%84%E9%87%8D%E8%A6%81%E6%80%A7/&title=TTFB对前端的重要性" target="_blank" rel="noopener"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=http://yoursite.com/2020/06/01/TTFB%E5%AF%B9%E5%89%8D%E7%AB%AF%E7%9A%84%E9%87%8D%E8%A6%81%E6%80%A7/&name=TTFB对前端的重要性&description=" target="_blank" rel="noopener"><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://news.ycombinator.com/submitlink?u=http://yoursite.com/2020/06/01/TTFB%E5%AF%B9%E5%89%8D%E7%AB%AF%E7%9A%84%E9%87%8D%E8%A6%81%E6%80%A7/&t=TTFB对前端的重要性" target="_blank" rel="noopener"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fas fa-bars fa-lg" aria-hidden="true"></i> 菜单</a>
+        <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fas fa-list fa-lg" aria-hidden="true"></i> 目录</a>
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fas fa-share-alt fa-lg" aria-hidden="true"></i> 分享</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up fa-lg" aria-hidden="true"></i> 返回顶部</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
+    
+    
+    2019-2020
+    DaHu An
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+         
+          <li><a href="/">首页</a></li>
+         
+          <li><a href="/about/">关于</a></li>
+         
+          <li><a href="/archives/">归档</a></li>
+         
+          <li><a href="https://github.com/Mrrabbitan" target="_blank" rel="noopener">项目</a></li>
+        
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+    </div>
+    <!-- styles -->
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+
+<link rel="stylesheet" href="/lib/justified-gallery/css/justifiedGallery.min.css">
+
+
+    <!-- jquery -->
+
+<script src="/lib/jquery/jquery.min.js"></script>
+
+
+<script src="/lib/justified-gallery/js/jquery.justifiedGallery.min.js"></script>
+
+<!-- clipboard -->
+
+  
+<script src="/lib/clipboard/clipboard.min.js"></script>
+
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"复制到粘贴板!\">";
+    btn += '<i class="far fa-clone"></i>';
+    btn += '</span>'; 
+    // mount it!
+    $(".highlight table").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      text: function(trigger) {
+        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "复制成功!");
+      e.clearSelection();
+    })
+  })
+  </script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- search -->
+
+<!-- Google Analytics -->
+
+<!-- Baidu Analytics -->
+
+<!-- Disqus Comments -->
+
+
+</body>
+</html>
