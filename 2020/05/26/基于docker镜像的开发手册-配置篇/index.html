@@ -14,7 +14,7 @@
 <meta property="og:description" content="ROS作为当前主流的机器人操作系统，虽然说到Melodic版本已经支持了Ubuntu, Debian, Win10, 还有测试的MacOS等版本，但是大家基本还是在Ubuntu上玩ROS的，要么虚拟机要么双系统之类的，这的确是解决了部分ROS初学者的痛点。但是ROS2GO或多或少还存在着一些问题，只能说能handle市面上大部分的电脑型号，具体能否使用还得试了才知道，比如说高贵的苹果爸爸不开源MB">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2020-05-26T15:35:24.000Z">
-<meta property="article:modified_time" content="2020-05-27T15:52:04.704Z">
+<meta property="article:modified_time" content="2020-06-04T16:00:16.232Z">
 <meta property="article:author" content="DaHu An">
 <meta property="article:tag" content="docker">
 <meta name="twitter:card" content="summary">
@@ -134,7 +134,7 @@
       
         <time datetime="2020-05-26T15:35:24.000Z" itemprop="datePublished">2020-05-26</time>
         
-        (Updated: <time datetime="2020-05-27T15:52:04.704Z" itemprop="dateModified">2020-05-27</time>)
+        (Updated: <time datetime="2020-06-04T16:00:16.232Z" itemprop="dateModified">2020-06-05</time>)
         
       
     </div>
@@ -163,8 +163,8 @@
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker pull yz16/my_ros</span><br></pre></td></tr></table></figure>
 
 
-<h2 id="使用这个Docker镜像"><a href="#使用这个Docker镜像" class="headerlink" title="使用这个Docker镜像"></a>使用这个Docker镜像</h2><h3 id="生成Container"><a href="#生成Container" class="headerlink" title="生成Container"></a>生成Container</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">docker run --name ros_env（随便起个名字） \</span><br><span class="line">--mount <span class="built_in">type</span>=<span class="built_in">bind</span>,<span class="built_in">source</span>=/Users/anzp/Download,target=/root/ros_workspaces \</span><br><span class="line">-itd -p 6777:811 yz16/my_ros</span><br></pre></td></tr></table></figure>
-<p>浏览器打开 <a href="http://127.0.0.1:6080" target="_blank" rel="noopener">http://127.0.0.1:6080</a> 然后就可以愉快的玩耍了。</p>
+<h2 id="使用这个Docker镜像"><a href="#使用这个Docker镜像" class="headerlink" title="使用这个Docker镜像"></a>使用这个Docker镜像</h2><h3 id="生成Container"><a href="#生成Container" class="headerlink" title="生成Container"></a>生成Container</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">docker run --name ros_env（随便起个名字） \</span><br><span class="line">--mount <span class="built_in">type</span>=<span class="built_in">bind</span>,<span class="built_in">source</span>=/Users/an/Download,target=/root/ros_workspaces \</span><br><span class="line">-itd -p 6777:811 yz16/my_ros</span><br></pre></td></tr></table></figure>
+<p>浏览器打开 <a href="http://127.0.0.1:6777" target="_blank" rel="noopener">http://127.0.0.1:6777</a> 然后就可以愉快的玩耍了。</p>
 <p>这里说明一点：虽然Docker说是可以看做精简版的虚拟机，但是并不能真的当虚拟机使用，由于Docker的层级机制，导致每次往Container里增加东西或者删除文件，只会不断增加Docker image的层数（文件越来越大）。所以正确的使用方法是把Container当做一个处理文件的程序（类比Word软件和*.docx文件），将我们主机的文件系统挂载到Container当中。</p>
 <p>不用了就直接</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker stop ros_env</span><br></pre></td></tr></table></figure>
