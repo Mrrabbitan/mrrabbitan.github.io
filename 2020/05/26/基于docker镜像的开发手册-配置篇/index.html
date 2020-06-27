@@ -9,7 +9,7 @@
     <meta name="description" content="ROS作为当前主流的机器人操作系统，虽然说到Melodic版本已经支持了Ubuntu, Debian, Win10, 还有测试的MacOS等版本，但是大家基本还是在Ubuntu上玩ROS的，要么虚拟机要么双系统之类的，这的确是解决了部分ROS初学者的痛点。但是ROS2GO或多或少还存在着一些问题，只能说能handle市面上大部分的电脑型号，具体能否使用还得试了才知道，比如说高贵的苹果爸爸不开源MB">
 <meta property="og:type" content="article">
 <meta property="og:title" content="基于docker镜像的开发手册--配置篇">
-<meta property="og:url" content="http://yoursite.com/2020/05/26/%E5%9F%BA%E4%BA%8Edocker%E9%95%9C%E5%83%8F%E7%9A%84%E5%BC%80%E5%8F%91%E6%89%8B%E5%86%8C-%E9%85%8D%E7%BD%AE%E7%AF%87/index.html">
+<meta property="og:url" content="https://anzp.gitee.io/andhblog/2020/05/26/%E5%9F%BA%E4%BA%8Edocker%E9%95%9C%E5%83%8F%E7%9A%84%E5%BC%80%E5%8F%91%E6%89%8B%E5%86%8C-%E9%85%8D%E7%BD%AE%E7%AF%87/index.html">
 <meta property="og:site_name" content="虎·馆">
 <meta property="og:description" content="ROS作为当前主流的机器人操作系统，虽然说到Melodic版本已经支持了Ubuntu, Debian, Win10, 还有测试的MacOS等版本，但是大家基本还是在Ubuntu上玩ROS的，要么虚拟机要么双系统之类的，这的确是解决了部分ROS初学者的痛点。但是ROS2GO或多或少还存在着一些问题，只能说能handle市面上大部分的电脑型号，具体能否使用还得试了才知道，比如说高贵的苹果爸爸不开源MB">
 <meta property="og:locale" content="zh_CN">
@@ -22,17 +22,17 @@
     
         
           
-              <link rel="shortcut icon" href="/images/tiger.ico">
+              <link rel="shortcut icon" href="/andhblog/images/tiger.ico">
           
         
         
           
-            <link rel="icon" type="image/png" href="/images/tiger.png" sizes="192x192">
+            <link rel="icon" type="image/png" href="/andhblog/images/tiger.png" sizes="192x192">
           
         
         
           
-            <link rel="apple-touch-icon" sizes="180x180" href="/images/tiger.png">
+            <link rel="apple-touch-icon" sizes="180x180" href="/andhblog/images/tiger.png">
           
         
     
@@ -40,12 +40,12 @@
     <title>基于docker镜像的开发手册--配置篇</title>
     <!-- styles -->
     
-<link rel="stylesheet" href="/css/style.css">
+<link rel="stylesheet" href="/andhblog/css/style.css">
 
     <!-- persian styles -->
     
       
-<link rel="stylesheet" href="/css/rtl.css">
+<link rel="stylesheet" href="/andhblog/css/rtl.css">
 
     
     <!-- rss -->
@@ -63,11 +63,11 @@
     <span id="nav">
       <ul>
          
-          <li><a href="/">首页</a></li>
+          <li><a href="/andhblog/">首页</a></li>
          
-          <li><a href="/about/">关于</a></li>
+          <li><a href="/andhblog/about/">关于</a></li>
          
-          <li><a href="/archives/">归档</a></li>
+          <li><a href="/andhblog/archives/">归档</a></li>
          
           <li><a href="https://github.com/Mrrabbitan" target="_blank" rel="noopener">项目</a></li>
         
@@ -77,10 +77,10 @@
     <span id="actions">
       <ul>
         
-        <li><a class="icon" href="/2020/06/01/TTFB%E5%AF%B9%E5%89%8D%E7%AB%AF%E7%9A%84%E9%87%8D%E8%A6%81%E6%80%A7/"><i class="fas fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        <li><a class="icon" href="/andhblog/2020/06/01/TTFB%E5%AF%B9%E5%89%8D%E7%AB%AF%E7%9A%84%E9%87%8D%E8%A6%81%E6%80%A7/"><i class="fas fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
         
         
-        <li><a class="icon" href="/2020/05/25/Hexo-%E5%BB%BA%E7%AB%99/"><i class="fas fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        <li><a class="icon" href="/andhblog/2020/05/25/Hexo-%E5%BB%BA%E7%AB%99/"><i class="fas fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
         
         <li><a class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
         <li><a class="icon" href="#"><i class="fas fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
@@ -93,17 +93,17 @@
     <br/>
     <div id="share" style="display: none">
       <ul>
-  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=http://yoursite.com/2020/05/26/%E5%9F%BA%E4%BA%8Edocker%E9%95%9C%E5%83%8F%E7%9A%84%E5%BC%80%E5%8F%91%E6%89%8B%E5%86%8C-%E9%85%8D%E7%BD%AE%E7%AF%87/" target="_blank" rel="noopener"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://twitter.com/share?url=http://yoursite.com/2020/05/26/%E5%9F%BA%E4%BA%8Edocker%E9%95%9C%E5%83%8F%E7%9A%84%E5%BC%80%E5%8F%91%E6%89%8B%E5%86%8C-%E9%85%8D%E7%BD%AE%E7%AF%87/&text=基于docker镜像的开发手册--配置篇" target="_blank" rel="noopener"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=http://yoursite.com/2020/05/26/%E5%9F%BA%E4%BA%8Edocker%E9%95%9C%E5%83%8F%E7%9A%84%E5%BC%80%E5%8F%91%E6%89%8B%E5%86%8C-%E9%85%8D%E7%BD%AE%E7%AF%87/&title=基于docker镜像的开发手册--配置篇" target="_blank" rel="noopener"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=http://yoursite.com/2020/05/26/%E5%9F%BA%E4%BA%8Edocker%E9%95%9C%E5%83%8F%E7%9A%84%E5%BC%80%E5%8F%91%E6%89%8B%E5%86%8C-%E9%85%8D%E7%BD%AE%E7%AF%87/&is_video=false&description=基于docker镜像的开发手册--配置篇" target="_blank" rel="noopener"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="mailto:?subject=基于docker镜像的开发手册--配置篇&body=Check out this article: http://yoursite.com/2020/05/26/%E5%9F%BA%E4%BA%8Edocker%E9%95%9C%E5%83%8F%E7%9A%84%E5%BC%80%E5%8F%91%E6%89%8B%E5%86%8C-%E9%85%8D%E7%BD%AE%E7%AF%87/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://getpocket.com/save?url=http://yoursite.com/2020/05/26/%E5%9F%BA%E4%BA%8Edocker%E9%95%9C%E5%83%8F%E7%9A%84%E5%BC%80%E5%8F%91%E6%89%8B%E5%86%8C-%E9%85%8D%E7%BD%AE%E7%AF%87/&title=基于docker镜像的开发手册--配置篇" target="_blank" rel="noopener"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://reddit.com/submit?url=http://yoursite.com/2020/05/26/%E5%9F%BA%E4%BA%8Edocker%E9%95%9C%E5%83%8F%E7%9A%84%E5%BC%80%E5%8F%91%E6%89%8B%E5%86%8C-%E9%85%8D%E7%BD%AE%E7%AF%87/&title=基于docker镜像的开发手册--配置篇" target="_blank" rel="noopener"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=http://yoursite.com/2020/05/26/%E5%9F%BA%E4%BA%8Edocker%E9%95%9C%E5%83%8F%E7%9A%84%E5%BC%80%E5%8F%91%E6%89%8B%E5%86%8C-%E9%85%8D%E7%BD%AE%E7%AF%87/&title=基于docker镜像的开发手册--配置篇" target="_blank" rel="noopener"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://digg.com/submit?url=http://yoursite.com/2020/05/26/%E5%9F%BA%E4%BA%8Edocker%E9%95%9C%E5%83%8F%E7%9A%84%E5%BC%80%E5%8F%91%E6%89%8B%E5%86%8C-%E9%85%8D%E7%BD%AE%E7%AF%87/&title=基于docker镜像的开发手册--配置篇" target="_blank" rel="noopener"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://www.tumblr.com/share/link?url=http://yoursite.com/2020/05/26/%E5%9F%BA%E4%BA%8Edocker%E9%95%9C%E5%83%8F%E7%9A%84%E5%BC%80%E5%8F%91%E6%89%8B%E5%86%8C-%E9%85%8D%E7%BD%AE%E7%AF%87/&name=基于docker镜像的开发手册--配置篇&description=" target="_blank" rel="noopener"><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://news.ycombinator.com/submitlink?u=http://yoursite.com/2020/05/26/%E5%9F%BA%E4%BA%8Edocker%E9%95%9C%E5%83%8F%E7%9A%84%E5%BC%80%E5%8F%91%E6%89%8B%E5%86%8C-%E9%85%8D%E7%BD%AE%E7%AF%87/&t=基于docker镜像的开发手册--配置篇" target="_blank" rel="noopener"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=https://anzp.gitee.io/andhblog/2020/05/26/%E5%9F%BA%E4%BA%8Edocker%E9%95%9C%E5%83%8F%E7%9A%84%E5%BC%80%E5%8F%91%E6%89%8B%E5%86%8C-%E9%85%8D%E7%BD%AE%E7%AF%87/" target="_blank" rel="noopener"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=https://anzp.gitee.io/andhblog/2020/05/26/%E5%9F%BA%E4%BA%8Edocker%E9%95%9C%E5%83%8F%E7%9A%84%E5%BC%80%E5%8F%91%E6%89%8B%E5%86%8C-%E9%85%8D%E7%BD%AE%E7%AF%87/&text=基于docker镜像的开发手册--配置篇" target="_blank" rel="noopener"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=https://anzp.gitee.io/andhblog/2020/05/26/%E5%9F%BA%E4%BA%8Edocker%E9%95%9C%E5%83%8F%E7%9A%84%E5%BC%80%E5%8F%91%E6%89%8B%E5%86%8C-%E9%85%8D%E7%BD%AE%E7%AF%87/&title=基于docker镜像的开发手册--配置篇" target="_blank" rel="noopener"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=https://anzp.gitee.io/andhblog/2020/05/26/%E5%9F%BA%E4%BA%8Edocker%E9%95%9C%E5%83%8F%E7%9A%84%E5%BC%80%E5%8F%91%E6%89%8B%E5%86%8C-%E9%85%8D%E7%BD%AE%E7%AF%87/&is_video=false&description=基于docker镜像的开发手册--配置篇" target="_blank" rel="noopener"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=基于docker镜像的开发手册--配置篇&body=Check out this article: https://anzp.gitee.io/andhblog/2020/05/26/%E5%9F%BA%E4%BA%8Edocker%E9%95%9C%E5%83%8F%E7%9A%84%E5%BC%80%E5%8F%91%E6%89%8B%E5%86%8C-%E9%85%8D%E7%BD%AE%E7%AF%87/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=https://anzp.gitee.io/andhblog/2020/05/26/%E5%9F%BA%E4%BA%8Edocker%E9%95%9C%E5%83%8F%E7%9A%84%E5%BC%80%E5%8F%91%E6%89%8B%E5%86%8C-%E9%85%8D%E7%BD%AE%E7%AF%87/&title=基于docker镜像的开发手册--配置篇" target="_blank" rel="noopener"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=https://anzp.gitee.io/andhblog/2020/05/26/%E5%9F%BA%E4%BA%8Edocker%E9%95%9C%E5%83%8F%E7%9A%84%E5%BC%80%E5%8F%91%E6%89%8B%E5%86%8C-%E9%85%8D%E7%BD%AE%E7%AF%87/&title=基于docker镜像的开发手册--配置篇" target="_blank" rel="noopener"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=https://anzp.gitee.io/andhblog/2020/05/26/%E5%9F%BA%E4%BA%8Edocker%E9%95%9C%E5%83%8F%E7%9A%84%E5%BC%80%E5%8F%91%E6%89%8B%E5%86%8C-%E9%85%8D%E7%BD%AE%E7%AF%87/&title=基于docker镜像的开发手册--配置篇" target="_blank" rel="noopener"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=https://anzp.gitee.io/andhblog/2020/05/26/%E5%9F%BA%E4%BA%8Edocker%E9%95%9C%E5%83%8F%E7%9A%84%E5%BC%80%E5%8F%91%E6%89%8B%E5%86%8C-%E9%85%8D%E7%BD%AE%E7%AF%87/&title=基于docker镜像的开发手册--配置篇" target="_blank" rel="noopener"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=https://anzp.gitee.io/andhblog/2020/05/26/%E5%9F%BA%E4%BA%8Edocker%E9%95%9C%E5%83%8F%E7%9A%84%E5%BC%80%E5%8F%91%E6%89%8B%E5%86%8C-%E9%85%8D%E7%BD%AE%E7%AF%87/&name=基于docker镜像的开发手册--配置篇&description=" target="_blank" rel="noopener"><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://news.ycombinator.com/submitlink?u=https://anzp.gitee.io/andhblog/2020/05/26/%E5%9F%BA%E4%BA%8Edocker%E9%95%9C%E5%83%8F%E7%9A%84%E5%BC%80%E5%8F%91%E6%89%8B%E5%86%8C-%E9%85%8D%E7%BD%AE%E7%AF%87/&t=基于docker镜像的开发手册--配置篇" target="_blank" rel="noopener"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
 </ul>
 
     </div>
@@ -145,7 +145,7 @@
       
     <div class="article-tag">
         <i class="fas fa-tag"></i>
-        <a class="tag-link" href="/tags/docker/" rel="tag">docker</a>
+        <a class="tag-link" href="/andhblog/tags/docker/" rel="tag">docker</a>
     </div>
 
 
@@ -195,11 +195,11 @@
     <div id="nav-footer" style="display: none">
       <ul>
          
-          <li><a href="/">首页</a></li>
+          <li><a href="/andhblog/">首页</a></li>
          
-          <li><a href="/about/">关于</a></li>
+          <li><a href="/andhblog/about/">关于</a></li>
          
-          <li><a href="/archives/">归档</a></li>
+          <li><a href="/andhblog/archives/">归档</a></li>
          
           <li><a href="https://github.com/Mrrabbitan" target="_blank" rel="noopener">项目</a></li>
         
@@ -212,17 +212,17 @@
 
     <div id="share-footer" style="display: none">
       <ul>
-  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=http://yoursite.com/2020/05/26/%E5%9F%BA%E4%BA%8Edocker%E9%95%9C%E5%83%8F%E7%9A%84%E5%BC%80%E5%8F%91%E6%89%8B%E5%86%8C-%E9%85%8D%E7%BD%AE%E7%AF%87/" target="_blank" rel="noopener"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://twitter.com/share?url=http://yoursite.com/2020/05/26/%E5%9F%BA%E4%BA%8Edocker%E9%95%9C%E5%83%8F%E7%9A%84%E5%BC%80%E5%8F%91%E6%89%8B%E5%86%8C-%E9%85%8D%E7%BD%AE%E7%AF%87/&text=基于docker镜像的开发手册--配置篇" target="_blank" rel="noopener"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=http://yoursite.com/2020/05/26/%E5%9F%BA%E4%BA%8Edocker%E9%95%9C%E5%83%8F%E7%9A%84%E5%BC%80%E5%8F%91%E6%89%8B%E5%86%8C-%E9%85%8D%E7%BD%AE%E7%AF%87/&title=基于docker镜像的开发手册--配置篇" target="_blank" rel="noopener"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=http://yoursite.com/2020/05/26/%E5%9F%BA%E4%BA%8Edocker%E9%95%9C%E5%83%8F%E7%9A%84%E5%BC%80%E5%8F%91%E6%89%8B%E5%86%8C-%E9%85%8D%E7%BD%AE%E7%AF%87/&is_video=false&description=基于docker镜像的开发手册--配置篇" target="_blank" rel="noopener"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="mailto:?subject=基于docker镜像的开发手册--配置篇&body=Check out this article: http://yoursite.com/2020/05/26/%E5%9F%BA%E4%BA%8Edocker%E9%95%9C%E5%83%8F%E7%9A%84%E5%BC%80%E5%8F%91%E6%89%8B%E5%86%8C-%E9%85%8D%E7%BD%AE%E7%AF%87/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://getpocket.com/save?url=http://yoursite.com/2020/05/26/%E5%9F%BA%E4%BA%8Edocker%E9%95%9C%E5%83%8F%E7%9A%84%E5%BC%80%E5%8F%91%E6%89%8B%E5%86%8C-%E9%85%8D%E7%BD%AE%E7%AF%87/&title=基于docker镜像的开发手册--配置篇" target="_blank" rel="noopener"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://reddit.com/submit?url=http://yoursite.com/2020/05/26/%E5%9F%BA%E4%BA%8Edocker%E9%95%9C%E5%83%8F%E7%9A%84%E5%BC%80%E5%8F%91%E6%89%8B%E5%86%8C-%E9%85%8D%E7%BD%AE%E7%AF%87/&title=基于docker镜像的开发手册--配置篇" target="_blank" rel="noopener"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=http://yoursite.com/2020/05/26/%E5%9F%BA%E4%BA%8Edocker%E9%95%9C%E5%83%8F%E7%9A%84%E5%BC%80%E5%8F%91%E6%89%8B%E5%86%8C-%E9%85%8D%E7%BD%AE%E7%AF%87/&title=基于docker镜像的开发手册--配置篇" target="_blank" rel="noopener"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://digg.com/submit?url=http://yoursite.com/2020/05/26/%E5%9F%BA%E4%BA%8Edocker%E9%95%9C%E5%83%8F%E7%9A%84%E5%BC%80%E5%8F%91%E6%89%8B%E5%86%8C-%E9%85%8D%E7%BD%AE%E7%AF%87/&title=基于docker镜像的开发手册--配置篇" target="_blank" rel="noopener"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://www.tumblr.com/share/link?url=http://yoursite.com/2020/05/26/%E5%9F%BA%E4%BA%8Edocker%E9%95%9C%E5%83%8F%E7%9A%84%E5%BC%80%E5%8F%91%E6%89%8B%E5%86%8C-%E9%85%8D%E7%BD%AE%E7%AF%87/&name=基于docker镜像的开发手册--配置篇&description=" target="_blank" rel="noopener"><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://news.ycombinator.com/submitlink?u=http://yoursite.com/2020/05/26/%E5%9F%BA%E4%BA%8Edocker%E9%95%9C%E5%83%8F%E7%9A%84%E5%BC%80%E5%8F%91%E6%89%8B%E5%86%8C-%E9%85%8D%E7%BD%AE%E7%AF%87/&t=基于docker镜像的开发手册--配置篇" target="_blank" rel="noopener"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=https://anzp.gitee.io/andhblog/2020/05/26/%E5%9F%BA%E4%BA%8Edocker%E9%95%9C%E5%83%8F%E7%9A%84%E5%BC%80%E5%8F%91%E6%89%8B%E5%86%8C-%E9%85%8D%E7%BD%AE%E7%AF%87/" target="_blank" rel="noopener"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=https://anzp.gitee.io/andhblog/2020/05/26/%E5%9F%BA%E4%BA%8Edocker%E9%95%9C%E5%83%8F%E7%9A%84%E5%BC%80%E5%8F%91%E6%89%8B%E5%86%8C-%E9%85%8D%E7%BD%AE%E7%AF%87/&text=基于docker镜像的开发手册--配置篇" target="_blank" rel="noopener"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=https://anzp.gitee.io/andhblog/2020/05/26/%E5%9F%BA%E4%BA%8Edocker%E9%95%9C%E5%83%8F%E7%9A%84%E5%BC%80%E5%8F%91%E6%89%8B%E5%86%8C-%E9%85%8D%E7%BD%AE%E7%AF%87/&title=基于docker镜像的开发手册--配置篇" target="_blank" rel="noopener"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=https://anzp.gitee.io/andhblog/2020/05/26/%E5%9F%BA%E4%BA%8Edocker%E9%95%9C%E5%83%8F%E7%9A%84%E5%BC%80%E5%8F%91%E6%89%8B%E5%86%8C-%E9%85%8D%E7%BD%AE%E7%AF%87/&is_video=false&description=基于docker镜像的开发手册--配置篇" target="_blank" rel="noopener"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=基于docker镜像的开发手册--配置篇&body=Check out this article: https://anzp.gitee.io/andhblog/2020/05/26/%E5%9F%BA%E4%BA%8Edocker%E9%95%9C%E5%83%8F%E7%9A%84%E5%BC%80%E5%8F%91%E6%89%8B%E5%86%8C-%E9%85%8D%E7%BD%AE%E7%AF%87/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=https://anzp.gitee.io/andhblog/2020/05/26/%E5%9F%BA%E4%BA%8Edocker%E9%95%9C%E5%83%8F%E7%9A%84%E5%BC%80%E5%8F%91%E6%89%8B%E5%86%8C-%E9%85%8D%E7%BD%AE%E7%AF%87/&title=基于docker镜像的开发手册--配置篇" target="_blank" rel="noopener"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=https://anzp.gitee.io/andhblog/2020/05/26/%E5%9F%BA%E4%BA%8Edocker%E9%95%9C%E5%83%8F%E7%9A%84%E5%BC%80%E5%8F%91%E6%89%8B%E5%86%8C-%E9%85%8D%E7%BD%AE%E7%AF%87/&title=基于docker镜像的开发手册--配置篇" target="_blank" rel="noopener"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=https://anzp.gitee.io/andhblog/2020/05/26/%E5%9F%BA%E4%BA%8Edocker%E9%95%9C%E5%83%8F%E7%9A%84%E5%BC%80%E5%8F%91%E6%89%8B%E5%86%8C-%E9%85%8D%E7%BD%AE%E7%AF%87/&title=基于docker镜像的开发手册--配置篇" target="_blank" rel="noopener"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=https://anzp.gitee.io/andhblog/2020/05/26/%E5%9F%BA%E4%BA%8Edocker%E9%95%9C%E5%83%8F%E7%9A%84%E5%BC%80%E5%8F%91%E6%89%8B%E5%86%8C-%E9%85%8D%E7%BD%AE%E7%AF%87/&title=基于docker镜像的开发手册--配置篇" target="_blank" rel="noopener"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=https://anzp.gitee.io/andhblog/2020/05/26/%E5%9F%BA%E4%BA%8Edocker%E9%95%9C%E5%83%8F%E7%9A%84%E5%BC%80%E5%8F%91%E6%89%8B%E5%86%8C-%E9%85%8D%E7%BD%AE%E7%AF%87/&name=基于docker镜像的开发手册--配置篇&description=" target="_blank" rel="noopener"><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://news.ycombinator.com/submitlink?u=https://anzp.gitee.io/andhblog/2020/05/26/%E5%9F%BA%E4%BA%8Edocker%E9%95%9C%E5%83%8F%E7%9A%84%E5%BC%80%E5%8F%91%E6%89%8B%E5%86%8C-%E9%85%8D%E7%BD%AE%E7%AF%87/&t=基于docker镜像的开发手册--配置篇" target="_blank" rel="noopener"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
 </ul>
 
     </div>
@@ -250,11 +250,11 @@
     <nav>
       <ul>
          
-          <li><a href="/">首页</a></li>
+          <li><a href="/andhblog/">首页</a></li>
          
-          <li><a href="/about/">关于</a></li>
+          <li><a href="/andhblog/about/">关于</a></li>
          
-          <li><a href="/archives/">归档</a></li>
+          <li><a href="/andhblog/archives/">归档</a></li>
          
           <li><a href="https://github.com/Mrrabbitan" target="_blank" rel="noopener">项目</a></li>
         
@@ -266,23 +266,23 @@
     </div>
     <!-- styles -->
 
-<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+<link rel="stylesheet" href="/andhblog/lib/font-awesome/css/all.min.css">
 
 
-<link rel="stylesheet" href="/lib/justified-gallery/css/justifiedGallery.min.css">
+<link rel="stylesheet" href="/andhblog/lib/justified-gallery/css/justifiedGallery.min.css">
 
 
     <!-- jquery -->
 
-<script src="/lib/jquery/jquery.min.js"></script>
+<script src="/andhblog/lib/jquery/jquery.min.js"></script>
 
 
-<script src="/lib/justified-gallery/js/jquery.justifiedGallery.min.js"></script>
+<script src="/andhblog/lib/justified-gallery/js/jquery.justifiedGallery.min.js"></script>
 
 <!-- clipboard -->
 
   
-<script src="/lib/clipboard/clipboard.min.js"></script>
+<script src="/andhblog/lib/clipboard/clipboard.min.js"></script>
 
   <script type="text/javascript">
   $(function() {
@@ -305,7 +305,7 @@
   </script>
 
 
-<script src="/js/main.js"></script>
+<script src="/andhblog/js/main.js"></script>
 
 <!-- search -->
 
