@@ -9,7 +9,7 @@
     <meta name="description" content="SRE团队优化后的dockerfiledockerfile11234567891011121314151617181920212223242526272829#multistage stage1FROM artifactory.momenta.works&#x2F;docker&#x2F;node:lts-alpine as builder #使用的镜像，artifactory具备作为私有仓库的功能# env set">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Docker file知识点总结">
-<meta property="og:url" content="https://anzp.gitee.io/andhblog/2020/06/04/Docker-file%E7%9F%A5%E8%AF%86%E7%82%B9%E6%80%BB%E7%BB%93/index.html">
+<meta property="og:url" content="http://yoursite.com/2020/06/04/Docker-file%E7%9F%A5%E8%AF%86%E7%82%B9%E6%80%BB%E7%BB%93/index.html">
 <meta property="og:site_name" content="虎·馆">
 <meta property="og:description" content="SRE团队优化后的dockerfiledockerfile11234567891011121314151617181920212223242526272829#multistage stage1FROM artifactory.momenta.works&#x2F;docker&#x2F;node:lts-alpine as builder #使用的镜像，artifactory具备作为私有仓库的功能# env set">
 <meta property="og:locale" content="zh_CN">
@@ -22,17 +22,17 @@
     
         
           
-              <link rel="shortcut icon" href="/andhblog/images/tiger.ico">
+              <link rel="shortcut icon" href="/images/tiger.ico">
           
         
         
           
-            <link rel="icon" type="image/png" href="/andhblog/images/tiger.png" sizes="192x192">
+            <link rel="icon" type="image/png" href="/images/tiger.png" sizes="192x192">
           
         
         
           
-            <link rel="apple-touch-icon" sizes="180x180" href="/andhblog/images/tiger.png">
+            <link rel="apple-touch-icon" sizes="180x180" href="/images/tiger.png">
           
         
     
@@ -40,12 +40,12 @@
     <title>Docker file知识点总结</title>
     <!-- styles -->
     
-<link rel="stylesheet" href="/andhblog/css/style.css">
+<link rel="stylesheet" href="/css/style.css">
 
     <!-- persian styles -->
     
       
-<link rel="stylesheet" href="/andhblog/css/rtl.css">
+<link rel="stylesheet" href="/css/rtl.css">
 
     
     <!-- rss -->
@@ -63,11 +63,11 @@
     <span id="nav">
       <ul>
          
-          <li><a href="/andhblog/">首页</a></li>
+          <li><a href="/">首页</a></li>
          
-          <li><a href="/andhblog/about/">关于</a></li>
+          <li><a href="https://anzp.gitee.io/myresume/" target="_blank" rel="noopener">关于</a></li>
          
-          <li><a href="/andhblog/archives/">归档</a></li>
+          <li><a href="/archives/">归档</a></li>
          
           <li><a href="https://github.com/Mrrabbitan" target="_blank" rel="noopener">项目</a></li>
         
@@ -77,8 +77,10 @@
     <span id="actions">
       <ul>
         
+        <li><a class="icon" href="/2020/07/07/%E4%BD%BF%E7%94%A8Hooks%E6%9B%BF%E4%BB%A3Redux%E8%AF%A6%E7%BB%86%E6%95%99%E7%A8%8B/"><i class="fas fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
         
-        <li><a class="icon" href="/andhblog/2020/06/01/TTFB%E5%AF%B9%E5%89%8D%E7%AB%AF%E7%9A%84%E9%87%8D%E8%A6%81%E6%80%A7/"><i class="fas fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" href="/2020/06/01/TTFB%E5%AF%B9%E5%89%8D%E7%AB%AF%E7%9A%84%E9%87%8D%E8%A6%81%E6%80%A7/"><i class="fas fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
         
         <li><a class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
         <li><a class="icon" href="#"><i class="fas fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
@@ -91,17 +93,17 @@
     <br/>
     <div id="share" style="display: none">
       <ul>
-  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=https://anzp.gitee.io/andhblog/2020/06/04/Docker-file%E7%9F%A5%E8%AF%86%E7%82%B9%E6%80%BB%E7%BB%93/" target="_blank" rel="noopener"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://twitter.com/share?url=https://anzp.gitee.io/andhblog/2020/06/04/Docker-file%E7%9F%A5%E8%AF%86%E7%82%B9%E6%80%BB%E7%BB%93/&text=Docker file知识点总结" target="_blank" rel="noopener"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=https://anzp.gitee.io/andhblog/2020/06/04/Docker-file%E7%9F%A5%E8%AF%86%E7%82%B9%E6%80%BB%E7%BB%93/&title=Docker file知识点总结" target="_blank" rel="noopener"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=https://anzp.gitee.io/andhblog/2020/06/04/Docker-file%E7%9F%A5%E8%AF%86%E7%82%B9%E6%80%BB%E7%BB%93/&is_video=false&description=Docker file知识点总结" target="_blank" rel="noopener"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="mailto:?subject=Docker file知识点总结&body=Check out this article: https://anzp.gitee.io/andhblog/2020/06/04/Docker-file%E7%9F%A5%E8%AF%86%E7%82%B9%E6%80%BB%E7%BB%93/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://getpocket.com/save?url=https://anzp.gitee.io/andhblog/2020/06/04/Docker-file%E7%9F%A5%E8%AF%86%E7%82%B9%E6%80%BB%E7%BB%93/&title=Docker file知识点总结" target="_blank" rel="noopener"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://reddit.com/submit?url=https://anzp.gitee.io/andhblog/2020/06/04/Docker-file%E7%9F%A5%E8%AF%86%E7%82%B9%E6%80%BB%E7%BB%93/&title=Docker file知识点总结" target="_blank" rel="noopener"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=https://anzp.gitee.io/andhblog/2020/06/04/Docker-file%E7%9F%A5%E8%AF%86%E7%82%B9%E6%80%BB%E7%BB%93/&title=Docker file知识点总结" target="_blank" rel="noopener"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://digg.com/submit?url=https://anzp.gitee.io/andhblog/2020/06/04/Docker-file%E7%9F%A5%E8%AF%86%E7%82%B9%E6%80%BB%E7%BB%93/&title=Docker file知识点总结" target="_blank" rel="noopener"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://www.tumblr.com/share/link?url=https://anzp.gitee.io/andhblog/2020/06/04/Docker-file%E7%9F%A5%E8%AF%86%E7%82%B9%E6%80%BB%E7%BB%93/&name=Docker file知识点总结&description=" target="_blank" rel="noopener"><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://news.ycombinator.com/submitlink?u=https://anzp.gitee.io/andhblog/2020/06/04/Docker-file%E7%9F%A5%E8%AF%86%E7%82%B9%E6%80%BB%E7%BB%93/&t=Docker file知识点总结" target="_blank" rel="noopener"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=http://yoursite.com/2020/06/04/Docker-file%E7%9F%A5%E8%AF%86%E7%82%B9%E6%80%BB%E7%BB%93/" target="_blank" rel="noopener"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=http://yoursite.com/2020/06/04/Docker-file%E7%9F%A5%E8%AF%86%E7%82%B9%E6%80%BB%E7%BB%93/&text=Docker file知识点总结" target="_blank" rel="noopener"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=http://yoursite.com/2020/06/04/Docker-file%E7%9F%A5%E8%AF%86%E7%82%B9%E6%80%BB%E7%BB%93/&title=Docker file知识点总结" target="_blank" rel="noopener"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=http://yoursite.com/2020/06/04/Docker-file%E7%9F%A5%E8%AF%86%E7%82%B9%E6%80%BB%E7%BB%93/&is_video=false&description=Docker file知识点总结" target="_blank" rel="noopener"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=Docker file知识点总结&body=Check out this article: http://yoursite.com/2020/06/04/Docker-file%E7%9F%A5%E8%AF%86%E7%82%B9%E6%80%BB%E7%BB%93/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=http://yoursite.com/2020/06/04/Docker-file%E7%9F%A5%E8%AF%86%E7%82%B9%E6%80%BB%E7%BB%93/&title=Docker file知识点总结" target="_blank" rel="noopener"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=http://yoursite.com/2020/06/04/Docker-file%E7%9F%A5%E8%AF%86%E7%82%B9%E6%80%BB%E7%BB%93/&title=Docker file知识点总结" target="_blank" rel="noopener"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=http://yoursite.com/2020/06/04/Docker-file%E7%9F%A5%E8%AF%86%E7%82%B9%E6%80%BB%E7%BB%93/&title=Docker file知识点总结" target="_blank" rel="noopener"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=http://yoursite.com/2020/06/04/Docker-file%E7%9F%A5%E8%AF%86%E7%82%B9%E6%80%BB%E7%BB%93/&title=Docker file知识点总结" target="_blank" rel="noopener"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=http://yoursite.com/2020/06/04/Docker-file%E7%9F%A5%E8%AF%86%E7%82%B9%E6%80%BB%E7%BB%93/&name=Docker file知识点总结&description=" target="_blank" rel="noopener"><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://news.ycombinator.com/submitlink?u=http://yoursite.com/2020/06/04/Docker-file%E7%9F%A5%E8%AF%86%E7%82%B9%E6%80%BB%E7%BB%93/&t=Docker file知识点总结" target="_blank" rel="noopener"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
 </ul>
 
     </div>
@@ -143,7 +145,7 @@
       
     <div class="article-tag">
         <i class="fas fa-tag"></i>
-        <a class="tag-link" href="/andhblog/tags/docker/" rel="tag">docker</a>
+        <a class="tag-link" href="/tags/docker/" rel="tag">docker</a>
     </div>
 
 
@@ -171,11 +173,11 @@
     <div id="nav-footer" style="display: none">
       <ul>
          
-          <li><a href="/andhblog/">首页</a></li>
+          <li><a href="/">首页</a></li>
          
-          <li><a href="/andhblog/about/">关于</a></li>
+          <li><a href="https://anzp.gitee.io/myresume/" target="_blank" rel="noopener">关于</a></li>
          
-          <li><a href="/andhblog/archives/">归档</a></li>
+          <li><a href="/archives/">归档</a></li>
          
           <li><a href="https://github.com/Mrrabbitan" target="_blank" rel="noopener">项目</a></li>
         
@@ -188,17 +190,17 @@
 
     <div id="share-footer" style="display: none">
       <ul>
-  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=https://anzp.gitee.io/andhblog/2020/06/04/Docker-file%E7%9F%A5%E8%AF%86%E7%82%B9%E6%80%BB%E7%BB%93/" target="_blank" rel="noopener"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://twitter.com/share?url=https://anzp.gitee.io/andhblog/2020/06/04/Docker-file%E7%9F%A5%E8%AF%86%E7%82%B9%E6%80%BB%E7%BB%93/&text=Docker file知识点总结" target="_blank" rel="noopener"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=https://anzp.gitee.io/andhblog/2020/06/04/Docker-file%E7%9F%A5%E8%AF%86%E7%82%B9%E6%80%BB%E7%BB%93/&title=Docker file知识点总结" target="_blank" rel="noopener"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=https://anzp.gitee.io/andhblog/2020/06/04/Docker-file%E7%9F%A5%E8%AF%86%E7%82%B9%E6%80%BB%E7%BB%93/&is_video=false&description=Docker file知识点总结" target="_blank" rel="noopener"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="mailto:?subject=Docker file知识点总结&body=Check out this article: https://anzp.gitee.io/andhblog/2020/06/04/Docker-file%E7%9F%A5%E8%AF%86%E7%82%B9%E6%80%BB%E7%BB%93/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://getpocket.com/save?url=https://anzp.gitee.io/andhblog/2020/06/04/Docker-file%E7%9F%A5%E8%AF%86%E7%82%B9%E6%80%BB%E7%BB%93/&title=Docker file知识点总结" target="_blank" rel="noopener"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://reddit.com/submit?url=https://anzp.gitee.io/andhblog/2020/06/04/Docker-file%E7%9F%A5%E8%AF%86%E7%82%B9%E6%80%BB%E7%BB%93/&title=Docker file知识点总结" target="_blank" rel="noopener"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=https://anzp.gitee.io/andhblog/2020/06/04/Docker-file%E7%9F%A5%E8%AF%86%E7%82%B9%E6%80%BB%E7%BB%93/&title=Docker file知识点总结" target="_blank" rel="noopener"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://digg.com/submit?url=https://anzp.gitee.io/andhblog/2020/06/04/Docker-file%E7%9F%A5%E8%AF%86%E7%82%B9%E6%80%BB%E7%BB%93/&title=Docker file知识点总结" target="_blank" rel="noopener"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://www.tumblr.com/share/link?url=https://anzp.gitee.io/andhblog/2020/06/04/Docker-file%E7%9F%A5%E8%AF%86%E7%82%B9%E6%80%BB%E7%BB%93/&name=Docker file知识点总结&description=" target="_blank" rel="noopener"><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://news.ycombinator.com/submitlink?u=https://anzp.gitee.io/andhblog/2020/06/04/Docker-file%E7%9F%A5%E8%AF%86%E7%82%B9%E6%80%BB%E7%BB%93/&t=Docker file知识点总结" target="_blank" rel="noopener"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=http://yoursite.com/2020/06/04/Docker-file%E7%9F%A5%E8%AF%86%E7%82%B9%E6%80%BB%E7%BB%93/" target="_blank" rel="noopener"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=http://yoursite.com/2020/06/04/Docker-file%E7%9F%A5%E8%AF%86%E7%82%B9%E6%80%BB%E7%BB%93/&text=Docker file知识点总结" target="_blank" rel="noopener"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=http://yoursite.com/2020/06/04/Docker-file%E7%9F%A5%E8%AF%86%E7%82%B9%E6%80%BB%E7%BB%93/&title=Docker file知识点总结" target="_blank" rel="noopener"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=http://yoursite.com/2020/06/04/Docker-file%E7%9F%A5%E8%AF%86%E7%82%B9%E6%80%BB%E7%BB%93/&is_video=false&description=Docker file知识点总结" target="_blank" rel="noopener"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=Docker file知识点总结&body=Check out this article: http://yoursite.com/2020/06/04/Docker-file%E7%9F%A5%E8%AF%86%E7%82%B9%E6%80%BB%E7%BB%93/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=http://yoursite.com/2020/06/04/Docker-file%E7%9F%A5%E8%AF%86%E7%82%B9%E6%80%BB%E7%BB%93/&title=Docker file知识点总结" target="_blank" rel="noopener"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=http://yoursite.com/2020/06/04/Docker-file%E7%9F%A5%E8%AF%86%E7%82%B9%E6%80%BB%E7%BB%93/&title=Docker file知识点总结" target="_blank" rel="noopener"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=http://yoursite.com/2020/06/04/Docker-file%E7%9F%A5%E8%AF%86%E7%82%B9%E6%80%BB%E7%BB%93/&title=Docker file知识点总结" target="_blank" rel="noopener"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=http://yoursite.com/2020/06/04/Docker-file%E7%9F%A5%E8%AF%86%E7%82%B9%E6%80%BB%E7%BB%93/&title=Docker file知识点总结" target="_blank" rel="noopener"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=http://yoursite.com/2020/06/04/Docker-file%E7%9F%A5%E8%AF%86%E7%82%B9%E6%80%BB%E7%BB%93/&name=Docker file知识点总结&description=" target="_blank" rel="noopener"><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://news.ycombinator.com/submitlink?u=http://yoursite.com/2020/06/04/Docker-file%E7%9F%A5%E8%AF%86%E7%82%B9%E6%80%BB%E7%BB%93/&t=Docker file知识点总结" target="_blank" rel="noopener"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
 </ul>
 
     </div>
@@ -226,11 +228,11 @@
     <nav>
       <ul>
          
-          <li><a href="/andhblog/">首页</a></li>
+          <li><a href="/">首页</a></li>
          
-          <li><a href="/andhblog/about/">关于</a></li>
+          <li><a href="https://anzp.gitee.io/myresume/" target="_blank" rel="noopener">关于</a></li>
          
-          <li><a href="/andhblog/archives/">归档</a></li>
+          <li><a href="/archives/">归档</a></li>
          
           <li><a href="https://github.com/Mrrabbitan" target="_blank" rel="noopener">项目</a></li>
         
@@ -242,23 +244,23 @@
     </div>
     <!-- styles -->
 
-<link rel="stylesheet" href="/andhblog/lib/font-awesome/css/all.min.css">
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
 
 
-<link rel="stylesheet" href="/andhblog/lib/justified-gallery/css/justifiedGallery.min.css">
+<link rel="stylesheet" href="/lib/justified-gallery/css/justifiedGallery.min.css">
 
 
     <!-- jquery -->
 
-<script src="/andhblog/lib/jquery/jquery.min.js"></script>
+<script src="/lib/jquery/jquery.min.js"></script>
 
 
-<script src="/andhblog/lib/justified-gallery/js/jquery.justifiedGallery.min.js"></script>
+<script src="/lib/justified-gallery/js/jquery.justifiedGallery.min.js"></script>
 
 <!-- clipboard -->
 
   
-<script src="/andhblog/lib/clipboard/clipboard.min.js"></script>
+<script src="/lib/clipboard/clipboard.min.js"></script>
 
   <script type="text/javascript">
   $(function() {
@@ -281,7 +283,7 @@
   </script>
 
 
-<script src="/andhblog/js/main.js"></script>
+<script src="/js/main.js"></script>
 
 <!-- search -->
 

@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang=zh>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <meta name="description" content="Hooks异步请求实例-useReducer、useContext和useEffect替代ReduxHooks从诞生至今已经有了长足的进步，不得不说hooks的出现是React的一个标志性里程碑。用hooks来解决开发中的问题大大提升了我们日常工作的效率，本文是针对异步请求数据的一个案例，目前只针对useReducer、useContext、useEffect进行探讨，同时还需要使用过Redux进">
+<meta property="og:type" content="article">
+<meta property="og:title" content="使用Hooks替代Redux详细教程">
+<meta property="og:url" content="http://yoursite.com/2020/07/07/%E4%BD%BF%E7%94%A8Hooks%E6%9B%BF%E4%BB%A3Redux%E8%AF%A6%E7%BB%86%E6%95%99%E7%A8%8B/index.html">
+<meta property="og:site_name" content="虎·馆">
+<meta property="og:description" content="Hooks异步请求实例-useReducer、useContext和useEffect替代ReduxHooks从诞生至今已经有了长足的进步，不得不说hooks的出现是React的一个标志性里程碑。用hooks来解决开发中的问题大大提升了我们日常工作的效率，本文是针对异步请求数据的一个案例，目前只针对useReducer、useContext、useEffect进行探讨，同时还需要使用过Redux进">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2020-07-06T16:01:13.000Z">
+<meta property="article:modified_time" content="2020-07-06T16:16:59.076Z">
+<meta property="article:author" content="DaHu An">
+<meta property="article:tag" content="技术&#x2F;前端&#x2F;中台&#x2F;面试">
+<meta name="twitter:card" content="summary">
+    
+    
+        
+          
+              <link rel="shortcut icon" href="/images/tiger.ico">
+          
+        
+        
+          
+            <link rel="icon" type="image/png" href="/images/tiger.png" sizes="192x192">
+          
+        
+        
+          
+            <link rel="apple-touch-icon" sizes="180x180" href="/images/tiger.png">
+          
+        
+    
+    <!-- title -->
+    <title>使用Hooks替代Redux详细教程</title>
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- persian styles -->
+    
+      
+<link rel="stylesheet" href="/css/rtl.css">
+
+    
+    <!-- rss -->
+    
+    
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fas fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+         
+          <li><a href="/">首页</a></li>
+         
+          <li><a href="https://anzp.gitee.io/myresume/" target="_blank" rel="noopener">关于</a></li>
+         
+          <li><a href="/archives/">归档</a></li>
+         
+          <li><a href="https://github.com/Mrrabbitan" target="_blank" rel="noopener">项目</a></li>
+        
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        
+        <li><a class="icon" href="/2020/06/04/Docker-file%E7%9F%A5%E8%AF%86%E7%82%B9%E6%80%BB%E7%BB%93/"><i class="fas fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" href="#"><i class="fas fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">上一篇</span>
+      <span id="i-next" class="info" style="display:none;">下一篇</span>
+      <span id="i-top" class="info" style="display:none;">返回顶部</span>
+      <span id="i-share" class="info" style="display:none;">分享文章</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=http://yoursite.com/2020/07/07/%E4%BD%BF%E7%94%A8Hooks%E6%9B%BF%E4%BB%A3Redux%E8%AF%A6%E7%BB%86%E6%95%99%E7%A8%8B/" target="_blank" rel="noopener"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=http://yoursite.com/2020/07/07/%E4%BD%BF%E7%94%A8Hooks%E6%9B%BF%E4%BB%A3Redux%E8%AF%A6%E7%BB%86%E6%95%99%E7%A8%8B/&text=使用Hooks替代Redux详细教程" target="_blank" rel="noopener"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=http://yoursite.com/2020/07/07/%E4%BD%BF%E7%94%A8Hooks%E6%9B%BF%E4%BB%A3Redux%E8%AF%A6%E7%BB%86%E6%95%99%E7%A8%8B/&title=使用Hooks替代Redux详细教程" target="_blank" rel="noopener"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=http://yoursite.com/2020/07/07/%E4%BD%BF%E7%94%A8Hooks%E6%9B%BF%E4%BB%A3Redux%E8%AF%A6%E7%BB%86%E6%95%99%E7%A8%8B/&is_video=false&description=使用Hooks替代Redux详细教程" target="_blank" rel="noopener"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=使用Hooks替代Redux详细教程&body=Check out this article: http://yoursite.com/2020/07/07/%E4%BD%BF%E7%94%A8Hooks%E6%9B%BF%E4%BB%A3Redux%E8%AF%A6%E7%BB%86%E6%95%99%E7%A8%8B/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=http://yoursite.com/2020/07/07/%E4%BD%BF%E7%94%A8Hooks%E6%9B%BF%E4%BB%A3Redux%E8%AF%A6%E7%BB%86%E6%95%99%E7%A8%8B/&title=使用Hooks替代Redux详细教程" target="_blank" rel="noopener"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=http://yoursite.com/2020/07/07/%E4%BD%BF%E7%94%A8Hooks%E6%9B%BF%E4%BB%A3Redux%E8%AF%A6%E7%BB%86%E6%95%99%E7%A8%8B/&title=使用Hooks替代Redux详细教程" target="_blank" rel="noopener"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=http://yoursite.com/2020/07/07/%E4%BD%BF%E7%94%A8Hooks%E6%9B%BF%E4%BB%A3Redux%E8%AF%A6%E7%BB%86%E6%95%99%E7%A8%8B/&title=使用Hooks替代Redux详细教程" target="_blank" rel="noopener"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=http://yoursite.com/2020/07/07/%E4%BD%BF%E7%94%A8Hooks%E6%9B%BF%E4%BB%A3Redux%E8%AF%A6%E7%BB%86%E6%95%99%E7%A8%8B/&title=使用Hooks替代Redux详细教程" target="_blank" rel="noopener"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=http://yoursite.com/2020/07/07/%E4%BD%BF%E7%94%A8Hooks%E6%9B%BF%E4%BB%A3Redux%E8%AF%A6%E7%BB%86%E6%95%99%E7%A8%8B/&name=使用Hooks替代Redux详细教程&description=" target="_blank" rel="noopener"><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://news.ycombinator.com/submitlink?u=http://yoursite.com/2020/07/07/%E4%BD%BF%E7%94%A8Hooks%E6%9B%BF%E4%BB%A3Redux%E8%AF%A6%E7%BB%86%E6%95%99%E7%A8%8B/&t=使用Hooks替代Redux详细教程" target="_blank" rel="noopener"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    <div id="toc">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Hooks异步请求实例-useReducer、useContext和useEffect替代Redux"><span class="toc-number">1.</span> <span class="toc-text">Hooks异步请求实例-useReducer、useContext和useEffect替代Redux</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#非Hooks实现方案"><span class="toc-number">2.</span> <span class="toc-text">非Hooks实现方案</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#使用Hooks-useReducer-和useContext"><span class="toc-number">3.</span> <span class="toc-text">使用Hooks-useReducer()和useContext()</span></a></li></ol>
+    </div>
+  </span>
+</div>
+
+    
+    <div class="content index py4">
+        
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle" itemprop="name headline">
+        使用Hooks替代Redux详细教程
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name">虎·馆</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2020-07-06T16:01:13.000Z" itemprop="datePublished">2020-07-07</time>
+        
+        (Updated: <time datetime="2020-07-06T16:16:59.076Z" itemprop="dateModified">2020-07-07</time>)
+        
+      
+    </div>
+
+
+      
+
+      
+
+    </div>
+  </header>
+  
+
+  <div class="content" itemprop="articleBody">
+    <h2 id="Hooks异步请求实例-useReducer、useContext和useEffect替代Redux"><a href="#Hooks异步请求实例-useReducer、useContext和useEffect替代Redux" class="headerlink" title="Hooks异步请求实例-useReducer、useContext和useEffect替代Redux"></a>Hooks异步请求实例-useReducer、useContext和useEffect替代Redux</h2><p>Hooks从诞生至今已经有了长足的进步，不得不说hooks的出现是React的一个标志性里程碑。用hooks来解决开发中的问题大大提升了我们日常工作的效率，本文是针对异步请求数据的一个案例，目前只针对useReducer、useContext、useEffect进行探讨，同时还需要使用过Redux进行过异步action添加。</p>
+<h2 id="非Hooks实现方案"><a href="#非Hooks实现方案" class="headerlink" title="非Hooks实现方案"></a>非Hooks实现方案</h2><p>在React的生命周期中，我们知道componentDidMount里我们最适合去进行异步请求，因此在不需要考虑状态管理时，这种方法很简单：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">class App extends React.Component&#123;</span><br><span class="line">    <span class="function"><span class="title">componentDidMount</span></span>()&#123;</span><br><span class="line">        axios.get(<span class="string">'/your/api'</span>)</span><br><span class="line">            .<span class="keyword">then</span>(res=&gt;/*...*/)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>随后引入Redux进行状态管理</p>
+<p>当你决定使用Redux进行状态管理时，比如将异步获取到的数据储存在store中，事情就开始复杂起来了。根据Redux的官方文档案例来看，为了实现异步action，你还得需要一个类似于redux-thunk、redux-saga的第三方库来解析你的异步action。</p>
+<p>Action.js： 定义异步请求action的地方</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">//这是一个异步action，分发了两个同步action，redux-thunk能够理解它</span><br><span class="line">const fetchGoodsList = url =&gt; dispatch =&gt; &#123;</span><br><span class="line">    dispatch(requestGoodsList());</span><br><span class="line">    axios.get(url)</span><br><span class="line">        .<span class="keyword">then</span>(res=&gt;&#123;</span><br><span class="line">            dispatch(receiveGoodsList(res.data))</span><br><span class="line">        &#125;)</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>Reducer.js: 处理同步action</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line">const requestReducer=(state=initialState,action)=&gt;&#123;</span><br><span class="line">    switch (action.type) &#123;</span><br><span class="line">        <span class="keyword">case</span> REQUEST_GOODSLIST:</span><br><span class="line">            <span class="built_in">return</span> Object.assign(&#123;&#125;,state,&#123;</span><br><span class="line">                isFetching: <span class="literal">true</span></span><br><span class="line">            &#125;);</span><br><span class="line">        <span class="keyword">case</span> RECEIVE_GOODSLIST:</span><br><span class="line">            <span class="built_in">return</span> Object.assign(&#123;&#125;,state,&#123;</span><br><span class="line">                isFetching:<span class="literal">false</span>,</span><br><span class="line">                goodsList:action.goodsList</span><br><span class="line">            &#125;);</span><br><span class="line">        default:</span><br><span class="line">            <span class="built_in">return</span> state;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">App Component ： 引入redux store和redux-thunk中间件的地方</span><br><span class="line"></span><br><span class="line">import &#123;Provider&#125; from <span class="string">'react-redux'</span>;</span><br><span class="line">import thunkMiddleWare from <span class="string">'redux-thunk'</span>;</span><br><span class="line">import &#123;createStore,applyMiddleware&#125; from <span class="string">'redux'</span>;</span><br><span class="line">//other imports</span><br><span class="line"></span><br><span class="line"><span class="built_in">let</span> store=createStore(</span><br><span class="line">    rootReducer,</span><br><span class="line">    //这里要使用中间件，才能够完成异步请求</span><br><span class="line">    applyMiddleware(</span><br><span class="line">        thunkMiddleWare,</span><br><span class="line">        myMiddleWare,</span><br><span class="line"></span><br><span class="line">    )</span><br><span class="line">);</span><br><span class="line">class App extends React.Component&#123;</span><br><span class="line">    <span class="function"><span class="title">render</span></span>()&#123;</span><br><span class="line">        <span class="built_in">return</span> (</span><br><span class="line">            &lt;Provider store=&#123;store&#125;&gt;</span><br><span class="line">                &lt;RootComponent/&gt;</span><br><span class="line">            &lt;/Provider&gt;</span><br><span class="line">        )</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>Component ：进行异步请求的组件</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">class *** extends React.Component&#123;</span><br><span class="line">    //...</span><br><span class="line">    <span class="function"><span class="title">componentDidMount</span></span>()&#123;</span><br><span class="line">        this.props.url(<span class="string">'your/url'</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    //...</span><br><span class="line">&#125;</span><br><span class="line">const mapDispatchToProps=&#123;</span><br><span class="line">    fetchGoodsList</span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">export</span> default connect(</span><br><span class="line">    mapStateToProps,</span><br><span class="line">    mapDispatchToProps</span><br><span class="line">)(GoodsList);</span><br></pre></td></tr></table></figure>
+<h2 id="使用Hooks-useReducer-和useContext"><a href="#使用Hooks-useReducer-和useContext" class="headerlink" title="使用Hooks-useReducer()和useContext()"></a>使用Hooks-useReducer()和useContext()</h2><p>使用Redux很累，当然，你可以不使用Redux，直接通过props层层传递，或者使用context都可以。既然出了useReducer，使用到了Redux的思想，总要试着用一下。再麻烦也不会比redux麻烦了（手动狗头）</p>
+<p>优点：</p>
+<p>1、这里你不需要引入别的任何第三方库了，简简单单地使用<a href="mailto:React@16.8.0">React@16.8.0</a>以上的版本就好啦</p>
+<p>2、很重要的一点就是——函数式组件，现在React推荐我们这么做，可以基本上代替class写法。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">useReducer(reducer,initialState)</span><br><span class="line">useContext(ctxObj)</span><br><span class="line">useEffect(effectFunction,[dependencyValues])</span><br></pre></td></tr></table></figure>
+<p>action.js：</p>
+<pre><code>我们还使用redux的思想，编写action</code></pre><p>reducer.js：</p>
+<pre><code>处理action，不同于redux的reducer，这里我们可以不用提供初始状态</code></pre><p>根组件：</p>
+<pre><code>Provider提供给子组件context useReducer定义的位置，引入一个reducer并且提供初始状态initialState </code></pre><p>子组件：</p>
+<pre><code>useContext定义的位置，获取祖先组件提供的context useEffect用于进行异步请求</code></pre><p>1.action.js：我们使用action创建函数</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">const REQUEST_GOODSLIST = <span class="string">"REQUEST_GOODSLIST"</span>;</span><br><span class="line">const RECEIVE_GOODSLIST = <span class="string">"RECEIVE_GOODSLIST"</span>;</span><br><span class="line"></span><br><span class="line">//开始请求</span><br><span class="line">const requestGoodsList = () =&gt; (&#123;</span><br><span class="line">    <span class="built_in">type</span>: REQUEST_GOODSLIST</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">//接收到数据</span><br><span class="line">const receiveGoodsList = json =&gt; (&#123;</span><br><span class="line">    <span class="built_in">type</span>: RECEIVE_GOODSLIST,</span><br><span class="line">    goodsList: json.goodsList,</span><br><span class="line">    receivedAt: Date.now()</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="built_in">export</span> &#123;</span><br><span class="line">    RECEIVE_GOODSLIST,</span><br><span class="line">    REQUEST_GOODSLIST,</span><br><span class="line">    receiveGoodsList,</span><br><span class="line">    requestGoodsList,</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>2.reducer.js：判断action的类型并进行相应处理，更新state</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">import &#123;</span><br><span class="line">    RECEIVE_GOODSLIST,</span><br><span class="line">    REQUEST_GOODSLIST,</span><br><span class="line">&#125; from <span class="string">"../.."</span>;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="built_in">export</span> const fetchReducer=(state,action)=&gt;&#123;</span><br><span class="line">    switch (action.type) &#123;</span><br><span class="line">        <span class="keyword">case</span> REQUEST_GOODSLIST:</span><br><span class="line">            <span class="built_in">return</span> Object.assign(&#123;&#125;,state,&#123;</span><br><span class="line">                isFetching: <span class="literal">true</span></span><br><span class="line">            &#125;);</span><br><span class="line">        <span class="keyword">case</span> RECEIVE_GOODSLIST:</span><br><span class="line">            <span class="built_in">return</span> Object.assign(&#123;&#125;,state,&#123;</span><br><span class="line">                isFetching:<span class="literal">false</span>,</span><br><span class="line">                goodsList:state.goodsList.concat(action.goodsList)</span><br><span class="line">            &#125;);</span><br><span class="line">        default:</span><br><span class="line">            <span class="built_in">return</span> state;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>3、根组件（未引用reducer.js的情况下可以这样写）</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">export</span> const EditContext = React.createContext(&#123;&#125;);</span><br><span class="line"></span><br><span class="line">// useReducer与useContext配合注入新的modal显示状态的控制信息**************************************</span><br><span class="line">const initialVisiable = <span class="literal">false</span>;</span><br><span class="line"></span><br><span class="line">const reducer = (visible: boolean, action: string) =&gt; &#123;</span><br><span class="line">  switch (action) &#123;</span><br><span class="line">    <span class="keyword">case</span> <span class="string">'show'</span>:</span><br><span class="line">      <span class="built_in">return</span> Boolean(1);</span><br><span class="line">    <span class="keyword">case</span> <span class="string">'hide'</span>:</span><br><span class="line">      <span class="built_in">return</span> Boolean(0);</span><br><span class="line"></span><br><span class="line">    default:</span><br><span class="line">      <span class="built_in">return</span> visible;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>之后需要在根组件的context()中传入相应参数,使得子组件可以获取到相应数据。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">const DataListManage: React.FC = props =&gt; &#123;</span><br><span class="line"> const dataManageList = useTestManageList();</span><br><span class="line"></span><br><span class="line"> //reducer</span><br><span class="line"></span><br><span class="line"> const [count, dispatch] = useReducer(reducer, initialVisiable);</span><br><span class="line"></span><br><span class="line"> <span class="built_in">return</span> (</span><br><span class="line"> &lt;PageHeaderLayout&gt;</span><br><span class="line"> &lt;Card&gt;</span><br><span class="line"> &lt;EditContext.Provider</span><br><span class="line"> value=&#123;&#123;</span><br><span class="line">            visiState: count,</span><br><span class="line">            visiDispatch: dispatch</span><br><span class="line"> &#125;&#125;</span><br><span class="line"> &gt;</span><br><span class="line"> &lt;DataManageTable</span><br><span class="line"> &#123;...props&#125;</span><br><span class="line"> loading=&#123;dataManageList.loading&#125;</span><br><span class="line"> data=&#123;dataManageList.data&#125;</span><br><span class="line"> /&gt;</span><br><span class="line"> &lt;/EditContext.Provider&gt;</span><br><span class="line"> &lt;/Card&gt;</span><br><span class="line"> &lt;/PageHeaderLayout&gt;</span><br><span class="line">  );</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>4、子组件</p>
+<p>注意只有被<br>&lt;***Context.Provider&gt;包裹住的元素才能进行值与函数的传递</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">const onlyForSearch = value =&gt; &#123;</span><br><span class="line">    setSearchList(value);</span><br><span class="line">  &#125;; </span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&lt;tableContext.Provider</span><br><span class="line"> value=&#123;&#123;</span><br><span class="line">          tabledata: dataset,</span><br><span class="line">          setDataFunc: changeTableData,</span><br><span class="line">          searchProps: searchState,</span><br><span class="line">          controlSearchProps: throwStateToContral,</span><br><span class="line">          searchList: searchList,</span><br><span class="line">          onlyForSearchResult: onlyForSearch</span><br><span class="line"> &#125;&#125;</span><br><span class="line"> &gt;</span><br><span class="line"> &lt;SearchBoxinTable /&gt;</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+<p>5、子组件的子组件</p>
+<p>在其中进行声明</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">const searchDataSet = useContext(tableContext);</span><br><span class="line">...</span><br><span class="line">// console.log(searchDataSet);</span><br><span class="line">searchDataSet.setDataFunc(searchResult.data.data.list);</span><br><span class="line">searchDataSet.controlSearchProps(<span class="literal">true</span>);</span><br><span class="line">searchDataSet.onlyForSearchResult(&#123;</span><br></pre></td></tr></table></figure>
+<p>需要注意的是：</p>
+<p>1、无论在哪一层级进行context的声明，最终都可以通过provider进行向下的数据传递。</p>
+<p>2、context可以进行函数的传递，传递的参数在接收的子元素中进行数据传递回父组件，父组件接收到数据即可进行setState动态数据变更，促使组件render</p>
+<pre><code>使用useContext()时候我们不需要使用Consumer了。
+但不要忘记export和import上下文对象useEffect()可以看做是class写法的
+componentDidMount、componentDidUpdate以及componentWillUnMount三个钩子函数的组合。
+当返回了一个函数的时候，这个函数就在compnentWillUnMount生命周期调用。
+默认地，传给useEffect的第一个参数会在每次（包含第一次）数据更新时重新调用。当给useEffect()传入了第二个参数（数组类型）的时候，
+effect函数会在第一次渲染时调用，其余仅当数组中的任一元素发生改变时才会调用。
+这相当于我们控制了组件的update生命周期 useEffect()第二个数组为空则意味着仅在componentDidMount周期执行一次</code></pre><p>3、不要在一个文件中provider提供完数据后，马上useContext消费数据，可能会取不到值。</p>
+<p>Happy Hacking~~</p>
+
+  </div>
+</article>
+
+
+
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+         
+          <li><a href="/">首页</a></li>
+         
+          <li><a href="https://anzp.gitee.io/myresume/" target="_blank" rel="noopener">关于</a></li>
+         
+          <li><a href="/archives/">归档</a></li>
+         
+          <li><a href="https://github.com/Mrrabbitan" target="_blank" rel="noopener">项目</a></li>
+        
+      </ul>
+    </div>
+
+    <div id="toc-footer" style="display: none">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Hooks异步请求实例-useReducer、useContext和useEffect替代Redux"><span class="toc-number">1.</span> <span class="toc-text">Hooks异步请求实例-useReducer、useContext和useEffect替代Redux</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#非Hooks实现方案"><span class="toc-number">2.</span> <span class="toc-text">非Hooks实现方案</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#使用Hooks-useReducer-和useContext"><span class="toc-number">3.</span> <span class="toc-text">使用Hooks-useReducer()和useContext()</span></a></li></ol>
+    </div>
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=http://yoursite.com/2020/07/07/%E4%BD%BF%E7%94%A8Hooks%E6%9B%BF%E4%BB%A3Redux%E8%AF%A6%E7%BB%86%E6%95%99%E7%A8%8B/" target="_blank" rel="noopener"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=http://yoursite.com/2020/07/07/%E4%BD%BF%E7%94%A8Hooks%E6%9B%BF%E4%BB%A3Redux%E8%AF%A6%E7%BB%86%E6%95%99%E7%A8%8B/&text=使用Hooks替代Redux详细教程" target="_blank" rel="noopener"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=http://yoursite.com/2020/07/07/%E4%BD%BF%E7%94%A8Hooks%E6%9B%BF%E4%BB%A3Redux%E8%AF%A6%E7%BB%86%E6%95%99%E7%A8%8B/&title=使用Hooks替代Redux详细教程" target="_blank" rel="noopener"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=http://yoursite.com/2020/07/07/%E4%BD%BF%E7%94%A8Hooks%E6%9B%BF%E4%BB%A3Redux%E8%AF%A6%E7%BB%86%E6%95%99%E7%A8%8B/&is_video=false&description=使用Hooks替代Redux详细教程" target="_blank" rel="noopener"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=使用Hooks替代Redux详细教程&body=Check out this article: http://yoursite.com/2020/07/07/%E4%BD%BF%E7%94%A8Hooks%E6%9B%BF%E4%BB%A3Redux%E8%AF%A6%E7%BB%86%E6%95%99%E7%A8%8B/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=http://yoursite.com/2020/07/07/%E4%BD%BF%E7%94%A8Hooks%E6%9B%BF%E4%BB%A3Redux%E8%AF%A6%E7%BB%86%E6%95%99%E7%A8%8B/&title=使用Hooks替代Redux详细教程" target="_blank" rel="noopener"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=http://yoursite.com/2020/07/07/%E4%BD%BF%E7%94%A8Hooks%E6%9B%BF%E4%BB%A3Redux%E8%AF%A6%E7%BB%86%E6%95%99%E7%A8%8B/&title=使用Hooks替代Redux详细教程" target="_blank" rel="noopener"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=http://yoursite.com/2020/07/07/%E4%BD%BF%E7%94%A8Hooks%E6%9B%BF%E4%BB%A3Redux%E8%AF%A6%E7%BB%86%E6%95%99%E7%A8%8B/&title=使用Hooks替代Redux详细教程" target="_blank" rel="noopener"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=http://yoursite.com/2020/07/07/%E4%BD%BF%E7%94%A8Hooks%E6%9B%BF%E4%BB%A3Redux%E8%AF%A6%E7%BB%86%E6%95%99%E7%A8%8B/&title=使用Hooks替代Redux详细教程" target="_blank" rel="noopener"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=http://yoursite.com/2020/07/07/%E4%BD%BF%E7%94%A8Hooks%E6%9B%BF%E4%BB%A3Redux%E8%AF%A6%E7%BB%86%E6%95%99%E7%A8%8B/&name=使用Hooks替代Redux详细教程&description=" target="_blank" rel="noopener"><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://news.ycombinator.com/submitlink?u=http://yoursite.com/2020/07/07/%E4%BD%BF%E7%94%A8Hooks%E6%9B%BF%E4%BB%A3Redux%E8%AF%A6%E7%BB%86%E6%95%99%E7%A8%8B/&t=使用Hooks替代Redux详细教程" target="_blank" rel="noopener"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fas fa-bars fa-lg" aria-hidden="true"></i> 菜单</a>
+        <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fas fa-list fa-lg" aria-hidden="true"></i> 目录</a>
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fas fa-share-alt fa-lg" aria-hidden="true"></i> 分享</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up fa-lg" aria-hidden="true"></i> 返回顶部</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
+    
+    
+    2019-2020
+    DaHu An
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+         
+          <li><a href="/">首页</a></li>
+         
+          <li><a href="https://anzp.gitee.io/myresume/" target="_blank" rel="noopener">关于</a></li>
+         
+          <li><a href="/archives/">归档</a></li>
+         
+          <li><a href="https://github.com/Mrrabbitan" target="_blank" rel="noopener">项目</a></li>
+        
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+    </div>
+    <!-- styles -->
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+
+<link rel="stylesheet" href="/lib/justified-gallery/css/justifiedGallery.min.css">
+
+
+    <!-- jquery -->
+
+<script src="/lib/jquery/jquery.min.js"></script>
+
+
+<script src="/lib/justified-gallery/js/jquery.justifiedGallery.min.js"></script>
+
+<!-- clipboard -->
+
+  
+<script src="/lib/clipboard/clipboard.min.js"></script>
+
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"复制到粘贴板!\">";
+    btn += '<i class="far fa-clone"></i>';
+    btn += '</span>'; 
+    // mount it!
+    $(".highlight table").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      text: function(trigger) {
+        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "复制成功!");
+      e.clearSelection();
+    })
+  })
+  </script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- search -->
+
+<!-- Google Analytics -->
+
+<!-- Baidu Analytics -->
+
+<!-- Disqus Comments -->
+
+
+</body>
+</html>
